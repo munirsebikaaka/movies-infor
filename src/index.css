@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-app-background: #05080f;
+  --logs-background: #161d2f;
+  --login-elements: #fc4747;
+  --login-el-color: #ffffffc4;
+  --main-app-color: #fff;
+  --links-color: #5a698f;
+}
+
+body {
+  background-color: var(--main-app-background);
+  font-family: Outfit;
+}

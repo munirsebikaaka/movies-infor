@@ -1,0 +1,223 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-app-background: #05080f;
+  --logs-background: #161d2f;
+  --login-elements: #fc4747;
+  --login-el-color: #ffffffc4;
+  --main-app-color: #fff;
+  --links-color: #5a698f;
+}
+
+.main {
+  color: var(--main-app-color);
+  width: 100%;
+}
+.main ul {
+  width: 100%;
+}
+.list {
+  width: 100%;
+  height: 174px;
+  top: 537px;
+  border-radius: 8px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.main ul h1 {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22.68px;
+}
+.main ul .det {
+  opacity: 75%;
+  font-weight: 300;
+}
+.main ul .year {
+  font-size: 13px;
+  line-height: 16.38px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.main ul li {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+}
+.bookmarkCell {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  width: 32px;
+  height: 32px;
+  background-color: #00040ec2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-app-color);
+}
+.bookmarkCell:hover {
+  background-color: var(--main-app-color);
+  color: #05080f;
+}
+.bookmark {
+  width: 20px;
+  height: 20px;
+  width: 11.67px;
+  height: 14px;
+}
+.default-msg {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.main .moviesList {
+  max-width: 100%;
+  margin: 0 auto;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding-right: 20px;
+}
+.head {
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 40.32px;
+  letter-spacing: -0.5px;
+  max-width: 100%;
+  margin: 25px auto;
+}
+
+.play {
+  /* display: none; */
+  cursor: pointer;
+  border: none;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22.68px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  color: var(--main-app-color);
+  background-color: #ffffff47;
+  border-radius: 28px;
+  padding: 3px;
+  padding-right: 10px;
+}
+.list:hover .play {
+  display: flex;
+}
+.iconB {
+  width: 30px;
+  height: 30px;
+}
+/* SEARCH */
+.search {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 18px;
+  padding-right: 20px;
+}
+.search .ico {
+  width: 32px;
+  height: 32px;
+}
+.search input {
+  width: 100%;
+  background-color: inherit;
+  border: none;
+  color: #fffffff2;
+  font-family: Outfit;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 30.24px;
+}
+.search input:focus {
+  outline: none;
+  border-bottom: 1px solid #ffffff70;
+  padding-bottom: 10px;
+}
+
+/* CONTAINER */
+.home,
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  /* display: flex; */
+  margin-left: 105px;
+  gap: 20px;
+  padding: 20px 0;
+  overflow: hidden;
+}
+.loader {
+  margin-left: 5px;
+}
+.login div {
+  position: relative;
+}
+.login div .erorr,
+.login div .erorr2,
+.login div .erorr3,
+.erorr1 {
+  position: absolute;
+  right: 10%;
+  top: 49.5%;
+  font-size: 15px;
+  color: var(--login-elements);
+}
+.login div .erorr2 {
+  top: 42%;
+}
+.login div .erorr3 {
+  top: 56%;
+}
+@media (max-width: 850px) {
+  .main .moviesList {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    padding-left: 20px;
+  }
+
+  .home,
+  .container {
+    margin-left: 0;
+  }
+  .search,
+  .head {
+    padding-left: 20px;
+  }
+}
+@media (max-width: 490px) {
+  .main .moviesList {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+  .home,
+  .container {
+    padding-top: 0;
+  }
+  .search input {
+    font-size: 16px;
+  }
+  .head {
+    font-size: 24px;
+  }
+}

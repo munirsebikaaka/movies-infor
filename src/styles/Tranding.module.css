@@ -1,0 +1,136 @@
+:root {
+  --main-app-background: #05080f;
+  --logs-background: #161d2f;
+  --login-elements: #fc4747;
+  --login-el-color: #ffffffc4;
+  --main-app-color: #fff;
+  --links-color: #5a698f;
+}
+
+.tranding {
+  margin: 0 auto;
+  max-width: 100%;
+}
+.tranding .headT {
+  font-family: Outfit;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40.32px;
+  letter-spacing: -0.5px;
+  margin: 20px 0;
+}
+.tranding ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  width: 4000px;
+  animation: scroll 50s linear infinite;
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-400px * 6));
+  }
+}
+.tranding ul:hover {
+  animation-play-state: paused;
+}
+
+.tranding ul li {
+  width: 700px;
+  height: 200px;
+  border-radius: 11px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  cursor: pointer;
+  margin-bottom: 10px;
+  position: relative;
+}
+.tranding ul li h1 {
+  margin-bottom: 30px;
+}
+.tranding ul li h1,
+.tranding ul li .det {
+  margin-left: 10px;
+}
+.tranding ul li:last-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.trandIconCell {
+  position: absolute;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  background-color: #00040ec2;
+  color: var(--main-app-color);
+  border-radius: 50%;
+  right: 0%;
+  top: 5%;
+  transform: translate(-50%);
+}
+.trandIconCell:hover {
+  background-color: var(--main-app-color);
+  color: var(--main-app-background);
+}
+.tradPlay {
+  cursor: pointer;
+  border: none;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22.68px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  color: var(--main-app-color);
+  background-color: #ffffff47;
+  position: absolute;
+  bottom: 40%;
+  left: 28%;
+  transform: translate(50%);
+  border-radius: 28px;
+  padding: 3px;
+  padding-right: 10px;
+}
+.tranding ul li:hover .tradPlay {
+  display: flex;
+}
+
+.iconB {
+  width: 30px;
+  height: 30px;
+}
+.tranding ul .year {
+  font-family: Outfit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16.38px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 850px) {
+  .tranding ul li:last-child {
+    display: none;
+  }
+  .tranding {
+    padding-left: 20px;
+  }
+  .tranding ul .secList {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  @media (max-width: 490px) {
+    .tradPlay {
+      left: -6%;
+    }
+  }
+}

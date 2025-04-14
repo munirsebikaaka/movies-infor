@@ -1,0 +1,74 @@
+.profile {
+  background-color: aqua;
+  height: 100vh;
+}
+.profileBody {
+  max-width: 50%;
+  margin: 0 auto;
+}
+.profileBody h1 {
+  margin-bottom: 15px;
+  color: #041737;
+}
+.profilePic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  text-align: center;
+  border: 2px solid #e9daa1;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.profilePic h2 {
+  font-size: 2rem;
+}
+.profileBody button {
+  font-size: 1rem;
+  text-transform: capitalize;
+  background-color: inherit;
+  color: #246190;
+  font-family: Outfit;
+  margin-bottom: 15px;
+}
+.profileBody input {
+  width: 100%;
+  height: 30px;
+  font-size: 1rem;
+  border-radius: 4px;
+  outline: none;
+  padding-left: 10px;
+  margin-top: 5px;
+}
+.names {
+  display: flex;
+  gap: 20px;
+}
+.names div {
+  width: 100%;
+}
+.names input {
+  border: 1px solid #9a9fa2;
+}
+.namesEmail {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.passwordsCell input {
+  margin-bottom: 10px;
+  border: 1px solid #9a9fa2;
+}
+.profile .profileBody label {
+  font-size: 0.9rem;
+  color: #454b50;
+  text-transform: capitalize;
+}
+.email {
+  background-color: #f2f3f5;
+  border: 1px solid #dfdfdf;
+}
