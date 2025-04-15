@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdMovie } from "react-icons/md";
 import styles from "../styles/Login.module.css";
-const Login = ({ setToggleRegstration, setShowA }) => {
+const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
   const [passwordMsg, setPasswordMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [values, setValues] = useState({ email: "", password: "" });
@@ -23,14 +23,7 @@ const Login = ({ setToggleRegstration, setShowA }) => {
         email: "",
         password: "",
       });
-      let acountsP = [];
-      acountsP = JSON.parse(localStorage.getItem("acountsP") || "[]");
-      const acount = {
-        email: values.email,
-        password: values.password,
-      };
-      acountsP.push(acount);
-      localStorage.setItem("acountsP", JSON.stringify(acountsP));
+      setLogedInEmail(values.email);
       return;
     }
   };

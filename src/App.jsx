@@ -18,6 +18,7 @@ const App = () => {
   const [tvseries, setTvSeries] = useState([]);
   const [tvSeriesDefault, setTvSeriesDefault] = useState(false);
   const [toggleRegstration, setToggleRegstration] = useState(false);
+  let [logedInEmail, setLogedInEmail] = useState("");
   const [showApp, setShowA] = useState(false);
 
   const [error, setError] = useState("");
@@ -62,6 +63,7 @@ const App = () => {
             <Login
               setToggleRegstration={setToggleRegstration}
               setShowA={setShowA}
+              setLogedInEmail={setLogedInEmail}
             />
           ) : (
             <SignIn setToggleRegstration={setToggleRegstration} />
@@ -110,7 +112,10 @@ const App = () => {
               }
             />
             <Route path="bookmarks" element={<BookMarks />} />
-            <Route path="profile" element={<AboutAccount />} />
+            <Route
+              path="profile"
+              element={<AboutAccount logedInEmail={logedInEmail} />}
+            />
           </Routes>
         </BrowserRouter>
       )}

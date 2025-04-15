@@ -1,37 +1,26 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/profiles.module.css";
+import ChangePassword from "./changePasswordForm";
 
-const AboutAccount = () => {
-  const [savedAccount, setSavedAccount] = useState([]);
-  const [logedInAcc, setLogedInAcc] = useState([]);
+const AboutAccount = ({ logedInEmail }) => {
+  const [firstLetters, setFirstLetters] = useState("");
+  const [lastLetters, setLastLetters] = useState("");
+  const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
   });
-  const [passwordValues, setPasswordValues] = useState({
-    oldPassword: "",
-    newPassword: "",
-    repeatPasswod: "",
-  });
-
-  const savedEmail = logedInAcc?.map((el) => el.email).join("");
-  const savedPassword = logedInAcc?.map((el) => el.password).join("");
-
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setPasswordValues({ ...passwordValues, [name]: value });
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
 
-  const onsubmitChangeNamesHundler = (e) => {
+  const onsubmitHandler = (e) => {
     e.preventDefault();
     const accounts = JSON.parse(localStorage.getItem("acounts"));
-    const updatedAccounts = accounts?.map((account) => {
-      if (account.email === savedEmail) {
+    const updatedAccounts = accounts.map((account) => {
+      if (account.email === logedInEmail) {
         return {
           ...account,
           firstName: values.firstName,
@@ -41,39 +30,28 @@ const AboutAccount = () => {
       return account;
     });
     localStorage.setItem("acounts", JSON.stringify(updatedAccounts));
+    setValues({
+      firstName: "",
+      lastName: "",
+    });
   };
 
-  const onsubmitChangePasswordHundler = (e) => {
-    e.preventDefault();
-    const accounts = JSON.parse(localStorage.getItem("acounts"));
-    const updatedAccount = accounts.map((el) => {
-      if (el.email === savedEmail) {
-        return { ...el, password: passwordValues.newPassword };
-      }
-      return el;
-    });
-    localStorage.setItem("acounts", JSON.stringify(updatedAccount));
-  };
   useEffect(() => {
     const accounts = JSON.parse(localStorage.getItem("acounts"));
-    setSavedAccount(accounts);
-    const accountP = JSON.parse(localStorage.getItem("acountsP"));
-    setLogedInAcc(accountP);
+    const getFirsLetterName = () =>
+      accounts
+        .filter((el) => el.email === logedInEmail)
+        .map((el) => el.firstName)
+        .join("");
+    setFirstLetters(getFirsLetterName());
+
+    const getLastLetterName = () =>
+      accounts
+        .filter((el) => el.email === logedInEmail)
+        .map((el) => el.lastName)
+        .join("");
+    setLastLetters(getLastLetterName());
   }, []);
-
-  const getFirsLetterName = () =>
-    savedAccount
-      .map((el) => el.firstName[0])
-      .join("")
-      .toUpperCase();
-  const firstLetter = getFirsLetterName();
-
-  const getLastLetterName = () =>
-    savedAccount
-      .map((el) => el.lastName[0])
-      .join("")
-      .toUpperCase();
-  const lastLetter = getLastLetterName();
 
   return (
     <div className={styles.profile}>
@@ -81,12 +59,12 @@ const AboutAccount = () => {
         <h1>Account Profile</h1>
         <div>
           <div className={styles.profilePic}>
-            <h2>{firstLetter}</h2>
-            <h2>{lastLetter}</h2>
+            <h2>{firstLetters[0]?.toUpperCase()}</h2>
+            <h2>{lastLetters[0]?.toUpperCase()}</h2>
           </div>
           <button>Upload photo</button>
         </div>
-        <form onSubmit={onsubmitChangeNamesHundler}>
+        <form onSubmit={onsubmitHandler}>
           <div className={styles.namesEmail}>
             <div className={styles.names}>
               <div>
@@ -94,7 +72,7 @@ const AboutAccount = () => {
                 <br />
                 <input
                   type="text"
-                  placeholder="munir"
+                  placeholder={firstLetters}
                   name="firstName"
                   value={values.firstName}
                   onChange={handleChange}
@@ -107,7 +85,7 @@ const AboutAccount = () => {
                 <input
                   name="lastName"
                   type="text"
-                  placeholder="codesmann"
+                  placeholder={lastLetters}
                   onChange={handleChange}
                   value={values.lastName}
                 />
@@ -118,7 +96,7 @@ const AboutAccount = () => {
               <br />
               <input
                 type="email"
-                placeholder="munirsebikaaka@gmail.com"
+                placeholder={logedInEmail}
                 disabled
                 className={styles.email}
               />
@@ -126,54 +104,20 @@ const AboutAccount = () => {
               <button type="submit" className={styles.btn}>
                 click
               </button>
+              <br />
+              <label>password</label>
+              <br />
+              <input type="......" placeholder="password" disabled />
+              <br />
             </div>
           </div>
         </form>
-        <form
-          className={styles.passwordsCell}
-          onSubmit={onsubmitChangePasswordHundler}
-        >
-          <label>password</label>
-          <br />
-          <input type="password" placeholder="password" />
-          <br />
-          <button>Change password</button>
-          <br />
-          <div className={styles.aboutPassword}>
-            <label>old password</label>
-            <br />
-            <input
-              type="password"
-              placeholder="old password"
-              name="oldPassword"
-              onChange={handlePasswordChange}
-              value={passwordValues.oldPassword}
-            />
-            <br />
-            <label>new password</label>
-            <br />
-            <input
-              type="password"
-              placeholder="new password"
-              name="newPassword"
-              onChange={handlePasswordChange}
-              value={passwordValues.newPassword}
-            />
-            <br />
-            <label>Comfirm new password</label>
-            <br />
-            <input
-              type="password"
-              placeholder="repeat password"
-              name="repeatPassword"
-              onChange={handleChange}
-              value={passwordValues.repeatPasswod}
-            />
-          </div>
-          <button type="submit" className={styles.btn}>
-            submit
-          </button>
-        </form>
+        <button onClick={() => setShowChangePasswordForm((e) => !e)}>
+          Change password
+        </button>
+        {showChangePasswordForm && (
+          <ChangePassword logedInEmail={logedInEmail} />
+        )}
       </div>
     </div>
   );
