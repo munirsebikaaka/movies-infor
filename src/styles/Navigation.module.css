@@ -35,8 +35,8 @@
   width: 70px;
   height: 97vh;
   border-radius: 11px;
-  margin-left: 15px;
-  margin-top: 20px;
+  /* margin-left: 15px; */
+  /* margin-top: 20px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,6 +45,7 @@
   gap: 50px;
   background-color: var(--logs-background);
   position: fixed;
+  left: 1%;
   z-index: 10;
 }
 .nav ul {
@@ -58,21 +59,21 @@
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  border: 1.5px solid #fff;
 }
 .nav .outerBtn {
   display: none;
 }
 @media (max-width: 850px) {
   .nav {
-    width: 90%;
+    width: 96%;
     height: auto;
     flex-direction: row;
-    padding: 10px;
-    margin-left: 10px;
-    margin: 0 auto;
-    /* margin-right: 10px; */
-    /* margin: 0 20px; */
+    top: 4%;
+    left: 2%;
+    padding: 20px;
   }
+
   .nav ul {
     display: flex;
     flex-direction: row;
@@ -91,13 +92,18 @@
 }
 @media (max-width: 490px) {
   .nav ul {
-    gap: 10px;
+    gap: 5px;
   }
   .nav {
+    top: 0%;
     width: 100%;
-    margin: 0 auto;
     border-radius: 0;
+    left: 0%;
     padding: 10px 20px;
     gap: 0;
+  }
+  .nav img {
+    width: 30px;
+    height: 30px;
   }
 }

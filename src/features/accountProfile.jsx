@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/profiles.module.css";
 import ChangePassword from "./changePasswordForm";
+import { IoArrowBack } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 
 const AboutAccount = ({ logedInEmail }) => {
   const [firstLetters, setFirstLetters] = useState("");
@@ -56,6 +58,9 @@ const AboutAccount = ({ logedInEmail }) => {
   return (
     <div className={styles.profile}>
       <div className={styles.profileBody}>
+        <NavLink className={styles.backHome} to={"/"}>
+          <IoArrowBack />
+        </NavLink>
         <h1>Account Profile</h1>
         <div>
           <div className={styles.profilePic}>

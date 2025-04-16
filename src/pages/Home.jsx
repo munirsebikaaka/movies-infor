@@ -20,8 +20,9 @@ const HomePage = ({
 }) => {
   return (
     <>
-      <AppNav />
       <div className={styles.home}>
+        <AppNav />
+
         <div className={styles.main}>
           <div className={styles.search}>
             <IoSearch className={styles.ico} />

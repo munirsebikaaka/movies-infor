@@ -1,10 +1,18 @@
 .profile {
   background-color: aqua;
-  height: 100vh;
+  height: 150vh;
 }
 .profileBody {
-  max-width: 50%;
+  width: 50%;
   margin: 0 auto;
+  position: relative;
+}
+.backHome {
+  position: absolute;
+  left: -40%;
+  top: 1%;
+  font-size: 32px;
+  color: #000000;
 }
 .profileBody h1 {
   margin-bottom: 15px;
@@ -71,4 +79,25 @@
 .email {
   background-color: #f2f3f5;
   border: 1px solid #dfdfdf;
+}
+@media (max-width: 850px) {
+  .profileBody {
+    width: 70%;
+  }
+  .backHome {
+    left: -20%;
+  }
+}
+@media (max-width: 490px) {
+  .profileBody {
+    width: 80%;
+  }
+  .backHome {
+    left: -13%;
+  }
+  .names {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }
