@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, data, Route, Routes } from "react-router-dom";
 import { useFetchDetail } from "./services/GetHomeData";
 import Login from "./features/Login";
 import SignIn from "./features/SignUp";
@@ -66,7 +66,10 @@ const App = () => {
               setLogedInEmail={setLogedInEmail}
             />
           ) : (
-            <SignIn setToggleRegstration={setToggleRegstration} />
+            <SignIn
+              setToggleRegstration={setToggleRegstration}
+              setShowA={setShowA}
+            />
           )}
         </div>
       ) : (

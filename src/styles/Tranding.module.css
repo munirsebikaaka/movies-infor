@@ -133,4 +133,22 @@
       left: -6%;
     }
   }
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-600px * 5));
+    }
+  }
+}
+@media (max-width: 490px) {
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-700px * 5));
+    }
+  }
 }

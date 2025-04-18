@@ -1,9 +1,9 @@
 .profile {
-  background-color: aqua;
+  background-color: #fffefc;
   height: 150vh;
 }
 .profileBody {
-  width: 50%;
+  width: 600px;
   margin: 0 auto;
   position: relative;
 }
@@ -15,12 +15,14 @@
   color: #000000;
 }
 .profileBody h1 {
-  margin-bottom: 15px;
-  color: #041737;
+  font-size: 22px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  color: #061a36;
 }
 .profilePic {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   text-align: center;
   border: 2px solid #e9daa1;
@@ -28,18 +30,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
 }
 .profilePic h2 {
-  font-size: 2rem;
+  font-size: 2.3rem;
+  font-weight: 300;
+  color: #0a1942;
 }
-.profileBody button {
+.upload,
+.submit,
+.changeaP {
   font-size: 1rem;
   text-transform: capitalize;
   background-color: inherit;
-  color: #246190;
+  color: #2d72b4;
   font-family: Outfit;
   margin-bottom: 15px;
+}
+.submit {
+  margin-bottom: 0;
 }
 .profileBody input {
   width: 100%;
@@ -58,7 +66,7 @@
   width: 100%;
 }
 .names input {
-  border: 1px solid #9a9fa2;
+  border: 1.5px solid #85888d;
 }
 .namesEmail {
   width: 100%;

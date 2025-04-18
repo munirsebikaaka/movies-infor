@@ -11,6 +11,7 @@ const AboutAccount = ({ logedInEmail }) => {
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
+    image: "",
   });
 
   const handleChange = (e) => {
@@ -55,6 +56,17 @@ const AboutAccount = ({ logedInEmail }) => {
     setLastLetters(getLastLetterName());
   }, []);
 
+  const uploadPhotoTrigger = () => {
+    const imageInput = document.getElementById("uploadImage");
+    imageInput.click();
+  };
+  const uploadPhotoHandler = (e) => {
+    console.log("selectedImage", e.target.files[0]);
+    const ImgObj = e.target.files[0];
+    const url = URL.createObjectURL(ImgObj);
+    setValues({ ...values, image: url });
+  };
+
   return (
     <div className={styles.profile}>
       <div className={styles.profileBody}>
@@ -67,7 +79,17 @@ const AboutAccount = ({ logedInEmail }) => {
             <h2>{firstLetters[0]?.toUpperCase()}</h2>
             <h2>{lastLetters[0]?.toUpperCase()}</h2>
           </div>
-          <button>Upload photo</button>
+          <img src={values.image} alt="face of the user" />
+          <input
+            onChange={uploadPhotoHandler}
+            style={{ display: "none" }}
+            id="uploadImage"
+            type="file"
+            accept="image/*"
+          />
+          <button onClick={uploadPhotoTrigger} className={styles.upload}>
+            Upload photo
+          </button>
         </div>
         <form onSubmit={onsubmitHandler}>
           <div className={styles.namesEmail}>
@@ -106,22 +128,36 @@ const AboutAccount = ({ logedInEmail }) => {
                 className={styles.email}
               />
               <br />
-              <button type="submit" className={styles.btn}>
-                click
+              <button type="submit" className={styles.submit}>
+                submit
               </button>
-              <br />
-              <label>password</label>
-              <br />
-              <input type="......" placeholder="password" disabled />
-              <br />
             </div>
           </div>
         </form>
-        <button onClick={() => setShowChangePasswordForm((e) => !e)}>
-          Change password
-        </button>
-        {showChangePasswordForm && (
-          <ChangePassword logedInEmail={logedInEmail} />
+
+        {showChangePasswordForm ? (
+          <ChangePassword
+            logedInEmail={logedInEmail}
+            setShowChangePasswordForm={setShowChangePasswordForm}
+          />
+        ) : (
+          <>
+            <label>password</label>
+            <br />
+            <input
+              className={styles.email}
+              type="type"
+              placeholder="........."
+              disabled
+            />
+            <br />
+            <button
+              className={styles.changeaP}
+              onClick={() => setShowChangePasswordForm(true)}
+            >
+              Change password
+            </button>
+          </>
         )}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { MdMovie } from "react-icons/md";
 import styles from "../styles/Login.module.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const SignIn = ({ setToggleRegstration }) => {
+const SignIn = ({ setToggleRegstration, setShowA }) => {
   const [emailMsg, setEmailMsg] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [passwordMsg, setPasswordMsg] = useState("");
@@ -49,6 +49,7 @@ const SignIn = ({ setToggleRegstration }) => {
     };
     acounts.push(acount);
     localStorage.setItem("acounts", JSON.stringify(acounts));
+    setToggleRegstration(false);
     toast("Click the login button below to login!");
   };
 

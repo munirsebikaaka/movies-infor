@@ -4,7 +4,7 @@ import styles from "../styles/Login.module.css";
 const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
   const [passwordMsg, setPasswordMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
-  const [values, setValues] = useState({ email: "", password: "" });
+  let [values, setValues] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;

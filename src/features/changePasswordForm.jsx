@@ -1,7 +1,10 @@
 import { useState } from "react";
 import styles from "../styles/profiles.module.css";
 
-export default function ChangePassword({ logedInEmail }) {
+export default function ChangePassword({
+  logedInEmail,
+  setShowChangePasswordForm,
+}) {
   const [values, setValues] = useState({
     oldPassword: "",
     newPassword: "",
@@ -18,7 +21,6 @@ export default function ChangePassword({ logedInEmail }) {
       .filter((el) => el.email === logedInEmail)
       .map((el) => el.password)
       .join("");
-    console.log("saved password", savedPassword);
 
     if (values.oldPassword.length < 1)
       return alert("Please input old password ");
@@ -42,6 +44,7 @@ export default function ChangePassword({ logedInEmail }) {
       newPassword: "",
       repeatPassword: "",
     });
+    setShowChangePasswordForm(false);
   };
   return (
     <form className={styles.passwordsCell} onSubmit={onsubmitHandler}>
@@ -77,7 +80,7 @@ export default function ChangePassword({ logedInEmail }) {
           value={values.repeatPassword}
         />
       </div>
-      <button type="submit" className={styles.btn}>
+      <button type="submit" className={styles.submit}>
         submit
       </button>
     </form>

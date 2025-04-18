@@ -26,7 +26,7 @@ export function useFetchDetail(
 
           if (data.Search.length > 0) {
             const modifiedResults = data.Search.map((el) => {
-              const isBookMarked = bookMarkedMoviesAndSeries.find(
+              const isBookMarked = bookMarkedMoviesAndSeries?.find(
                 (b) => b.imdbID === el.imdbID
               )
                 ? true

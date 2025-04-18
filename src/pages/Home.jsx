@@ -19,7 +19,6 @@ const HomePage = ({
   setHomeInput,
 }) => {
   return (
-    <>
       <div className={styles.home}>
         <AppNav />
 
@@ -86,7 +85,6 @@ const HomePage = ({
           </ul>
         </div>
       </div>
-    </>
   );
 };
 export default HomePage;
