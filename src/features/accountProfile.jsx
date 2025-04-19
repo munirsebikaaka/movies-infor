@@ -79,7 +79,7 @@ const AboutAccount = ({ logedInEmail }) => {
             <h2>{firstLetters[0]?.toUpperCase()}</h2>
             <h2>{lastLetters[0]?.toUpperCase()}</h2>
           </div>
-          <img src={values.image} alt="face of the user" />
+          <img src={values?.image} alt="face of the user" />
           <input
             onChange={uploadPhotoHandler}
             style={{ display: "none" }}

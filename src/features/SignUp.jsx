@@ -21,6 +21,19 @@ const SignIn = ({ setToggleRegstration, setShowA }) => {
     setValues({ ...values, [name]: value });
   };
 
+  const nums = "1234567890".split("");
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYX".split("");
+  const lower = "abcdefghijklmnopqrstuvwxyz".split("");
+  const symboles = '!@#$%^&*()<>>?":|.,'.split("");
+  const results = "aOdc".split("");
+  const checkIfPasswordIsValid = () => {
+    const final = results.filter(
+      (el) => lower.includes(el) && upper.includes(el)
+    );
+    console.log(final);
+  };
+  checkIfPasswordIsValid();
+
   const onsubmitHandler = (e) => {
     e.preventDefault();
     if (!values.firstName) return;
