@@ -5,8 +5,27 @@ import { TbDeviceTvOld } from "react-icons/tb";
 import { BsBookmarkFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import styles from "../styles/Navigation.module.css";
+import { useEffect, useState } from "react";
 
-const AppNav = () => {
+const AppNav = ({ logedInEmail }) => {
+  const [firstLetters, setFirstLetters] = useState("");
+  const [lastLetters, setLastLetters] = useState("");
+  useEffect(() => {
+    const accounts = JSON.parse(localStorage.getItem("acounts"));
+    const getFirsLetterName = () =>
+      accounts
+        .filter((el) => el.email === logedInEmail)
+        .map((el) => el.firstName)
+        .join("");
+    setFirstLetters(getFirsLetterName());
+
+    const getLastLetterName = () =>
+      accounts
+        .filter((el) => el.email === logedInEmail)
+        .map((el) => el.lastName)
+        .join("");
+    setLastLetters(getLastLetterName());
+  }, []);
   return (
     <nav className={styles.nav}>
       <button className={styles.outerBtn}>
@@ -38,7 +57,11 @@ const AppNav = () => {
         </li>
       </ul>
       <NavLink to={"/profile"} className={styles.link}>
-        <img src="imgs/nav.jpg" alt="Account profile" />
+        {/* <img src="imgs/nav.jpg" alt="Account profile" /> */}
+        <div className={styles.profilePic}>
+          <h2>{firstLetters[0]}</h2>
+          <h2>{lastLetters[0]}</h2>
+        </div>
       </NavLink>
     </nav>
   );

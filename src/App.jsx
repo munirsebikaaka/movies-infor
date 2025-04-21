@@ -9,6 +9,7 @@ import styles from "../src/styles/Body.module.css";
 import Movies from "./pages/Movies";
 import TVSeries from "./pages/TvSeries";
 import AboutAccount from "./features/accountProfile";
+import useGetDefaultProfilePicture from "./services/createDefaultProfile";
 
 const App = () => {
   const [movieDetails, setMoviesDetalis] = useState([]);
@@ -19,6 +20,8 @@ const App = () => {
   const [tvSeriesDefault, setTvSeriesDefault] = useState(false);
   const [toggleRegstration, setToggleRegstration] = useState(false);
   let [logedInEmail, setLogedInEmail] = useState("");
+  // const [firstLetters, setFirstLetters] = useState("");
+  // const [lastLetters, setLastLetters] = useState("");
   const [showApp, setShowA] = useState(false);
 
   const [error, setError] = useState("");
@@ -41,6 +44,8 @@ const App = () => {
     setError,
     seriesInput
   );
+
+  // useGetDefaultProfilePicture(logedInEmail, setFirstLetters, setLastLetters);
   const checkLengthOfMovieNames = (array) => {
     array.map((el) => {
       const movieName = el.Title;
@@ -85,6 +90,7 @@ const App = () => {
                   error={error}
                   homeInput={homeInput}
                   setHomeInput={setHomeInput}
+                  logedInEmail={logedInEmail}
                 />
               }
             />
@@ -98,6 +104,7 @@ const App = () => {
                   error={error}
                   MovieInput={MovieInput}
                   setMovieInput={setMovieInput}
+                  logedInEmail={logedInEmail}
                 />
               }
             />
@@ -111,13 +118,20 @@ const App = () => {
                   error={error}
                   seriesInput={seriesInput}
                   setSeriesInput={setSeriesInput}
+                  logedInEmail={logedInEmail}
                 />
               }
             />
             <Route path="bookmarks" element={<BookMarks />} />
             <Route
               path="profile"
-              element={<AboutAccount logedInEmail={logedInEmail} />}
+              element={
+                <AboutAccount
+                  logedInEmail={logedInEmail}
+                  // firstLetters={firstLetters}
+                  // lastLetters={lastLetters}
+                />
+              }
             />
           </Routes>
         </BrowserRouter>

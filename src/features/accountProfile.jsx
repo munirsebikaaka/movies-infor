@@ -75,11 +75,19 @@ const AboutAccount = ({ logedInEmail }) => {
         </NavLink>
         <h1>Account Profile</h1>
         <div>
-          <div className={styles.profilePic}>
-            <h2>{firstLetters[0]?.toUpperCase()}</h2>
-            <h2>{lastLetters[0]?.toUpperCase()}</h2>
-          </div>
-          <img src={values?.image} alt="face of the user" />
+          {values.image.length < 1 ? (
+            <div className={styles.profilePic}>
+              <h2>{firstLetters[0]?.toUpperCase()}</h2>
+              <h2>{lastLetters[0]?.toUpperCase()}</h2>
+            </div>
+          ) : (
+            <img
+              className={styles.profileImg}
+              src={values?.image}
+              alt="face of the user"
+            />
+          )}
+
           <input
             onChange={uploadPhotoHandler}
             style={{ display: "none" }}

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { MdMovie } from "react-icons/md";
 import styles from "../styles/Login.module.css";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
   const [passwordMsg, setPasswordMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   let [values, setValues] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -58,7 +61,7 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
             <br />
             <input
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={values.password}
               onChange={handleChange}
@@ -83,6 +86,17 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
                 Sign Up
               </button>
             </p>
+            {!showPassword ? (
+              <IoEye
+                className={styles.loginEye}
+                onClick={() => setShowPassword(true)}
+              />
+            ) : (
+              <IoEyeOff
+                className={styles.loginEye}
+                onClick={() => setShowPassword(false)}
+              />
+            )}
           </form>
         </div>
       }

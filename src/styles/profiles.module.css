@@ -79,6 +79,9 @@
   margin-bottom: 10px;
   border: 1px solid #9a9fa2;
 }
+.passwordsCell {
+  position: relative;
+}
 .profile .profileBody label {
   font-size: 0.9rem;
   color: #454b50;
@@ -87,6 +90,21 @@
 .email {
   background-color: #f2f3f5;
   border: 1px solid #dfdfdf;
+}
+.profileImg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+}
+
+.profileEye {
+  font-size: 22px;
+  position: absolute;
+  cursor: pointer;
+  color: #f30909;
+  right: 1%;
+  bottom: 42%;
 }
 @media (max-width: 850px) {
   .profileBody {

@@ -10,6 +10,7 @@
   width: 25px;
   height: 25px;
   color: var(--links-color);
+  text-decoration: none;
 }
 .link:hover {
   color: var(--login-elements);
@@ -62,6 +63,26 @@
 }
 .nav .outerBtn {
   display: none;
+}
+.profilePic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  border: 2px solid #e9daa1;
+  /* margin-bottom: 10px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* text-decoration: none; */
+  margin-left: -5.5px;
+}
+.profilePic h2 {
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: #fff;
+  text-transform: capitalize;
+  /* text-decoration: none; */
 }
 @media (max-width: 850px) {
   .nav {

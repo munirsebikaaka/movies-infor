@@ -7,7 +7,7 @@ import AppNav from "../features/ApplicationNavigation";
 import { useEffect, useState } from "react";
 import { bookMarkedMoviesAndSeries } from "../services/bookmarksArr";
 
-const BookMarks = () => {
+const BookMarks = ({ logedInEmail }) => {
   const [bookmarks, setBookmarks] = useState([]);
   useEffect(() => {
     if (bookMarkedMoviesAndSeries?.length > 0) {
@@ -26,7 +26,7 @@ const BookMarks = () => {
   };
   return (
     <div className={styles.container}>
-      <AppNav />
+      <AppNav logedInEmail={logedInEmail} />
 
       <div className={styles.main}>
         <div className={styles.search}>

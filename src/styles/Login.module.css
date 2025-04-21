@@ -140,3 +140,15 @@ button {
   height: 35px;
   color: var(--login-elements);
 }
+.loginEye,
+.signUpEye {
+  font-size: 22px;
+  position: absolute;
+  cursor: pointer;
+  color: var(--main-app-color);
+  right: 10%;
+  bottom: 44%;
+}
+.signUpEye {
+  bottom: 39%;
+}

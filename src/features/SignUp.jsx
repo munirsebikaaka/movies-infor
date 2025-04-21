@@ -1,14 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import { MdMovie } from "react-icons/md";
+import { IoEye, IoEyeOff } from "react-icons/io5";
+
 import styles from "../styles/Login.module.css";
 import { ToastContainer, toast } from "react-toastify";
+import checkIfPasswordIsValid from "../services/passwordChecker";
 
-const SignIn = ({ setToggleRegstration, setShowA }) => {
+const SignIn = ({ setToggleRegstration }) => {
   const [emailMsg, setEmailMsg] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [passwordMsg, setPasswordMsg] = useState("");
   const [rePasswordMsg, setRePasswordMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -20,19 +25,6 @@ const SignIn = ({ setToggleRegstration, setShowA }) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
-
-  const nums = "1234567890".split("");
-  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYX".split("");
-  const lower = "abcdefghijklmnopqrstuvwxyz".split("");
-  const symboles = '!@#$%^&*()<>>?":|.,'.split("");
-  const results = "aOdc".split("");
-  const checkIfPasswordIsValid = () => {
-    const final = results.filter(
-      (el) => lower.includes(el) && upper.includes(el)
-    );
-    console.log(final);
-  };
-  checkIfPasswordIsValid();
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
@@ -47,6 +39,9 @@ const SignIn = ({ setToggleRegstration, setShowA }) => {
     setPasswordMsg("");
     if (!rePassword) return setRePasswordMsg("Repeat password!");
     setRePasswordMsg("");
+    if (!checkIfPasswordIsValid(values.password))
+      return setPasswordMsg("password is not strong");
+    setPasswordMsg("");
     if (values.password !== rePassword)
       return setRePasswordMsg("Doesn't match!");
     setRePasswordMsg("");
@@ -124,7 +119,7 @@ const SignIn = ({ setToggleRegstration, setShowA }) => {
           />
           <input
             name="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="password"
             value={values.password}
             onChange={handleChanges}
@@ -160,6 +155,17 @@ const SignIn = ({ setToggleRegstration, setShowA }) => {
               Login
             </button>
           </p>
+          {!showPassword ? (
+            <IoEye
+              className={styles.signUpEye}
+              onClick={() => setShowPassword(true)}
+            />
+          ) : (
+            <IoEyeOff
+              className={styles.signUpEye}
+              onClick={() => setShowPassword(false)}
+            />
+          )}
         </form>
       </div>
     </>
