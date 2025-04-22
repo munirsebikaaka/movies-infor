@@ -9,7 +9,6 @@ import styles from "../src/styles/Body.module.css";
 import Movies from "./pages/Movies";
 import TVSeries from "./pages/TvSeries";
 import AboutAccount from "./features/accountProfile";
-import useGetDefaultProfilePicture from "./services/createDefaultProfile";
 
 const App = () => {
   const [movieDetails, setMoviesDetalis] = useState([]);
@@ -20,9 +19,8 @@ const App = () => {
   const [tvSeriesDefault, setTvSeriesDefault] = useState(false);
   const [toggleRegstration, setToggleRegstration] = useState(false);
   let [logedInEmail, setLogedInEmail] = useState("");
-  // const [firstLetters, setFirstLetters] = useState("");
-  // const [lastLetters, setLastLetters] = useState("");
-  const [showApp, setShowA] = useState(false);
+
+  let [showApp, setShowA] = useState(false);
 
   const [error, setError] = useState("");
   const [homeInput, setHomeInput] = useState("");
@@ -45,7 +43,10 @@ const App = () => {
     seriesInput
   );
 
-  // useGetDefaultProfilePicture(logedInEmail, setFirstLetters, setLastLetters);
+  const handleShowAppChange = (showApp) => {
+    if (showApp) localStorage.setItem("showApp", JSON.stringify(showApp));
+    setShowA(showApp);
+  };
   const checkLengthOfMovieNames = (array) => {
     array.map((el) => {
       const movieName = el.Title;
@@ -68,6 +69,7 @@ const App = () => {
             <Login
               setToggleRegstration={setToggleRegstration}
               setShowA={setShowA}
+              handleShowAppChange={handleShowAppChange}
               setLogedInEmail={setLogedInEmail}
             />
           ) : (

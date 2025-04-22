@@ -2,7 +2,12 @@ import { useState } from "react";
 import { MdMovie } from "react-icons/md";
 import styles from "../styles/Login.module.css";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
+const Login = ({
+  setToggleRegstration,
+  setShowA,
+  setLogedInEmail,
+  handleShowAppChange,
+}) => {
   const [passwordMsg, setPasswordMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -16,12 +21,22 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
-    if (!values.email) return setEmailMsg("Invalid account!");
-    if (!values.password) return setPasswordMsg("Can't be empty!");
     const createdAcounts = JSON.parse(localStorage.getItem("acounts"));
+    const accountEmail = createdAcounts.map((acount) => acount.email).join("");
+    if (!values.email || values.email !== accountEmail)
+      return setEmailMsg("Invalid account!");
+    setEmailMsg("");
+
+    if (!values.password) return setPasswordMsg("Can't be empty!");
     const acount = createdAcounts?.find((ac) => ac.email === values.email);
+    if (acount.password !== values.password)
+      return setPasswordMsg("Wrong password!");
+    setPasswordMsg("");
     if (acount && acount.password === values.password) {
-      setShowA(true);
+      handleShowAppChange(true);
+      const showApp = JSON.parse(localStorage.getItem("showApp"));
+      setShowA(showApp);
+      localStorage.setItem("email", values.email);
       setValues({
         email: "",
         password: "",

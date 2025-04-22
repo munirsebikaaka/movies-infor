@@ -13,6 +13,9 @@ export default function ChangePassword({
     repeatPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [oldMsg, setOldMsg] = useState("");
+  const [newMsg, setNewMsg] = useState("");
+  const [repeatMsg, setRepeatMsg] = useState("");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -26,17 +29,22 @@ export default function ChangePassword({
       .join("");
 
     if (values.oldPassword.length < 1)
-      return alert("Please input old password ");
-    if (values.oldPassword !== savedPassword) return alert("Wrong password");
-    if (values.newPassword.length < 4)
-      return alert("New password must atleast has 4 digits");
-    if (values.repeatPassword.length < 1)
-      return alert("Please repeat password");
+      return setOldMsg("Please input old password ");
+    setOldMsg("");
+    if (values.oldPassword !== savedPassword)
+      return setOldMsg("Wrong password");
+    setOldMsg("");
+    if (values.newPassword.length < 6)
+      return setNewMsg("New password must atleast has 6 digits");
+    setNewMsg("");
     if (!checkIfPasswordIsValid(values.newPassword))
-      return alert("password is not strong");
+      return setNewMsg("password is not strong");
+    setNewMsg("");
+    if (values.repeatPassword.length < 1)
+      return setRepeatMsg("Please repeat password");
+    setRepeatMsg("");
     if (values.newPassword !== values.repeatPassword)
       return alert("Password doesn't much");
-
     const updatedAccount = accounts.map((el) => {
       if (el.email === logedInEmail) {
         return { ...el, password: values.newPassword };
@@ -54,6 +62,9 @@ export default function ChangePassword({
   return (
     <>
       <form className={styles.passwordsCell} onSubmit={onsubmitHandler}>
+        <p style={{ color: "wheat" }}>{oldMsg}</p>
+        <p style={{ color: "wheat" }}>{newMsg}</p>
+        <p style={{ color: "wheat" }}>{repeatMsg}</p>
         <br />
         <div className={styles.aboutPassword}>
           <label>old password</label>
