@@ -6,8 +6,9 @@ import { BsBookmarkFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import styles from "../styles/Navigation.module.css";
 import { useEffect, useState } from "react";
+import { logedInEmail } from "../services/bookmarksArr";
 
-const AppNav = ({ logedInEmail }) => {
+const AppNav = () => {
   const [firstLetters, setFirstLetters] = useState("");
   const [lastLetters, setLastLetters] = useState("");
   useEffect(() => {
@@ -26,6 +27,11 @@ const AppNav = ({ logedInEmail }) => {
         .join("");
     setLastLetters(getLastLetterName());
   }, []);
+  const profilePic = () => {
+    return localStorage.getItem("profilePic");
+  };
+  const profileLength = profilePic()?.length;
+
   return (
     <nav className={styles.nav}>
       <button className={styles.outerBtn}>
@@ -57,11 +63,14 @@ const AppNav = ({ logedInEmail }) => {
         </li>
       </ul>
       <NavLink to={"/profile"} className={styles.link}>
-        {/* <img src="imgs/nav.jpg" alt="Account profile" /> */}
+        {/* {profileLength ? (
+          <img src={profilePic()} alt="Account profile" />
+        ) : ( */}
         <div className={styles.profilePic}>
           <h2>{firstLetters[0]}</h2>
           <h2>{lastLetters[0]}</h2>
         </div>
+        {/* )} */}
       </NavLink>
     </nav>
   );

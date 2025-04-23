@@ -2,11 +2,9 @@ import { useState } from "react";
 import styles from "../styles/profiles.module.css";
 import checkIfPasswordIsValid from "../services/passwordChecker";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { logedInEmail } from "../services/bookmarksArr";
 
-export default function ChangePassword({
-  logedInEmail,
-  setShowChangePasswordForm,
-}) {
+export default function ChangePassword({ setShowChangePasswordForm }) {
   const [values, setValues] = useState({
     oldPassword: "",
     newPassword: "",
@@ -20,6 +18,8 @@ export default function ChangePassword({
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+  // const logedInEmail = localStorage.getItem("email");
+
   const onsubmitHandler = (e) => {
     e.preventDefault();
     const accounts = JSON.parse(localStorage.getItem("acounts"));
@@ -37,9 +37,9 @@ export default function ChangePassword({
     if (values.newPassword.length < 6)
       return setNewMsg("New password must atleast has 6 digits");
     setNewMsg("");
-    if (!checkIfPasswordIsValid(values.newPassword))
-      return setNewMsg("password is not strong");
-    setNewMsg("");
+    // if (!checkIfPasswordIsValid(values.newPassword))
+    //   return setNewMsg("password is not strong");
+    // setNewMsg("");
     if (values.repeatPassword.length < 1)
       return setRepeatMsg("Please repeat password");
     setRepeatMsg("");

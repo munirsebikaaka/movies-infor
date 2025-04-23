@@ -17,11 +17,10 @@ const HomePage = ({
   error,
   homeInput,
   setHomeInput,
-  logedInEmail,
 }) => {
   return (
     <div className={styles.home}>
-      <AppNav logedInEmail={logedInEmail} />
+      <AppNav />
 
       <div className={styles.main}>
         <div className={styles.search}>

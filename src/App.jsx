@@ -125,16 +125,7 @@ const App = () => {
               }
             />
             <Route path="bookmarks" element={<BookMarks />} />
-            <Route
-              path="profile"
-              element={
-                <AboutAccount
-                  logedInEmail={logedInEmail}
-                  // firstLetters={firstLetters}
-                  // lastLetters={lastLetters}
-                />
-              }
-            />
+            <Route path="profile" element={<AboutAccount />} />
           </Routes>
         </BrowserRouter>
       )}

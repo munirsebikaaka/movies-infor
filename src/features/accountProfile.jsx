@@ -3,8 +3,9 @@ import styles from "../styles/profiles.module.css";
 import ChangePassword from "./changePasswordForm";
 import { IoArrowBack } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
+import { logedInEmail } from "../services/bookmarksArr";
 
-const AboutAccount = ({ logedInEmail }) => {
+const AboutAccount = () => {
   const [firstLetters, setFirstLetters] = useState("");
   const [lastLetters, setLastLetters] = useState("");
   const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
@@ -13,11 +14,12 @@ const AboutAccount = ({ logedInEmail }) => {
     lastName: "",
     image: "",
   });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+
+  // const logedInEmail = localStorage.getItem("email");
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
@@ -61,11 +63,16 @@ const AboutAccount = ({ logedInEmail }) => {
     imageInput.click();
   };
   const uploadPhotoHandler = (e) => {
-    console.log("selectedImage", e.target.files[0]);
     const ImgObj = e.target.files[0];
     const url = URL.createObjectURL(ImgObj);
-    setValues({ ...values, image: url });
+    localStorage.setItem("profilePic", url);
+    const profilePic = () => {
+      return localStorage.getItem("profilePic");
+    };
+    setValues({ ...values, image: profilePic() });
   };
+
+  const profileLength = values.image?.length;
 
   return (
     <div className={styles.profile}>
@@ -75,7 +82,7 @@ const AboutAccount = ({ logedInEmail }) => {
         </NavLink>
         <h1>Account Profile</h1>
         <div>
-          {values.image.length < 1 ? (
+          {!profileLength ? (
             <div className={styles.profilePic}>
               <h2>{firstLetters[0]?.toUpperCase()}</h2>
               <h2>{lastLetters[0]?.toUpperCase()}</h2>
@@ -83,7 +90,7 @@ const AboutAccount = ({ logedInEmail }) => {
           ) : (
             <img
               className={styles.profileImg}
-              src={values?.image}
+              src={values.image}
               alt="face of the user"
             />
           )}
@@ -145,7 +152,6 @@ const AboutAccount = ({ logedInEmail }) => {
 
         {showChangePasswordForm ? (
           <ChangePassword
-            logedInEmail={logedInEmail}
             setShowChangePasswordForm={setShowChangePasswordForm}
           />
         ) : (

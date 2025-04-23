@@ -15,11 +15,10 @@ const Movies = ({
   error,
   MovieInput,
   setMovieInput,
-  logedInEmail,
 }) => {
   return (
     <div className={styles.container}>
-      <AppNav logedInEmail={logedInEmail} />
+      <AppNav />
 
       <div className={styles.main}>
         <div className={styles.search}>
