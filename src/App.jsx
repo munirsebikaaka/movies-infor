@@ -92,7 +92,6 @@ const App = () => {
                   error={error}
                   homeInput={homeInput}
                   setHomeInput={setHomeInput}
-                  logedInEmail={logedInEmail}
                 />
               }
             />
@@ -106,7 +105,6 @@ const App = () => {
                   error={error}
                   MovieInput={MovieInput}
                   setMovieInput={setMovieInput}
-                  logedInEmail={logedInEmail}
                 />
               }
             />

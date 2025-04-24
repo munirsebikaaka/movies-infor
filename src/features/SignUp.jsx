@@ -5,9 +5,15 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 
 import styles from "../styles/Login.module.css";
 import { ToastContainer, toast } from "react-toastify";
-import checkIfPasswordIsValid from "../services/passwordChecker";
+// import checkIfPasswordIsValid from "../services/passwordChecker";
+import isUpperCaseAdded from "../services/passwordCheck/upperCase";
+import isLowerCaseAdded from "../services/passwordCheck/lowerCase";
+import isNumbersAdded from "../services/passwordCheck/numbers";
+import isSymbolsAdded from "../services/passwordCheck/symbols";
 
 const SignIn = ({ setToggleRegstration }) => {
+  const [firstMsg, setFirstMsg] = useState("");
+  const [lastMsg, setLastMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [passwordMsg, setPasswordMsg] = useState("");
@@ -28,8 +34,10 @@ const SignIn = ({ setToggleRegstration }) => {
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
-    if (!values.firstName) return;
-    if (!values.lastName) return;
+    if (!values.firstName) return setFirstMsg("Can't be empty! ");
+    setFirstMsg("");
+    if (!values.lastName) return setLastMsg("Can't be empty!");
+    setLastMsg("");
     if (!values.email) return setEmailMsg("Please input email address.");
     setEmailMsg("");
     if (!values.password) return setPasswordMsg("Can't be empty!");
@@ -37,11 +45,21 @@ const SignIn = ({ setToggleRegstration }) => {
     if (values.password.length < 4)
       return setPasswordMsg("Password must aleast have 4 characters.");
     setPasswordMsg("");
+    if (!isUpperCaseAdded(values.password))
+      return setPasswordMsg("Please include atleast one capital letter.");
+    setPasswordMsg("");
+    if (!isLowerCaseAdded(values.password))
+      return setPasswordMsg("Please include atleast one small letter.");
+    setPasswordMsg("");
+    if (!isNumbersAdded(values.password))
+      return setPasswordMsg("Please include atleast one digit.");
+    setPasswordMsg("");
+    if (!isSymbolsAdded(values.password))
+      return setPasswordMsg("Please include atleast one symbol.");
+    setPasswordMsg("");
     if (!rePassword) return setRePasswordMsg("Repeat password!");
     setRePasswordMsg("");
-    if (!checkIfPasswordIsValid(values.password))
-      return setPasswordMsg("password is not strong");
-    setPasswordMsg("");
+
     if (values.password !== rePassword)
       return setRePasswordMsg("Doesn't match!");
     setRePasswordMsg("");
@@ -71,6 +89,8 @@ const SignIn = ({ setToggleRegstration }) => {
           <MdMovie className={styles.icons} />
         </p>
         <form onSubmit={onsubmitHandler}>
+          <p className={styles.nameError}>{firstMsg}</p>
+          <p className={styles.nameError1}>{lastMsg}</p>
           <p className={styles.erorr1}>{emailMsg}</p>
           <p className={styles.erorr4}>{passwordMsg}</p>
           <p className={styles.rePass}>{rePasswordMsg}</p>
@@ -82,7 +102,7 @@ const SignIn = ({ setToggleRegstration }) => {
             value={values.firstName}
             onChange={handleChanges}
             style={
-              emailMsg.length > 0
+              firstMsg.length > 0
                 ? { borderBottom: "1px solid  #fc4747" }
                 : values.firstName.length >= 1
                 ? { borderBottom: "1.5px solid  #fff" }
@@ -96,7 +116,7 @@ const SignIn = ({ setToggleRegstration }) => {
             value={values.lastName}
             onChange={handleChanges}
             style={
-              emailMsg.length > 0
+              lastMsg.length > 0
                 ? { borderBottom: "1px solid  #fc4747" }
                 : values.lastName.length >= 1
                 ? { borderBottom: "1.5px solid  #fff" }

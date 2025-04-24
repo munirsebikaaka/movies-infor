@@ -88,6 +88,20 @@
 .passwordsCell {
   position: relative;
 }
+.passwordError,
+.passwordError2,
+.passwordError3 {
+  position: absolute;
+  color: var(--login-elements);
+  right: 2%;
+  top: 31%;
+}
+.passwordError2 {
+  top: 59%;
+}
+.passwordError3 {
+  top: 86%;
+}
 .profile .profileBody label {
   font-size: 0.9rem;
   color: #454b50;

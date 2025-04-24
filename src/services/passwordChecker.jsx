@@ -1,4 +1,4 @@
-const checkIfPasswordIsValid = (values) => {
+export const checkIfPasswordIsValid = (values) => {
   const nums = "1234567890".split("");
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYX".split("");
   const lower = "abcdefghijklmnopqrstuvwxyz".split("");
@@ -10,4 +10,3 @@ const checkIfPasswordIsValid = (values) => {
     symboles.some((el) => values.includes(el));
   return isPasswordStrong;
 };
-export default checkIfPasswordIsValid;

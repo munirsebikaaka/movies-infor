@@ -108,15 +108,24 @@ button {
 .login form .erorr1,
 .login form .erorr2,
 .login form .erorr4,
-.login form .rePass {
+.login form .rePass,
+.nameError,
+.nameError1 {
   position: absolute;
   right: 10%;
   top: 50%;
   font-size: 15px;
   color: var(--login-elements);
 }
+.nameError {
+  top: 28%;
+  color: var(--login-elements);
+}
+.nameError1 {
+  top: 40%;
+}
 .login form .erorr1 {
-  top: 29%;
+  top: 51%;
 }
 
 .login form .erorr2 {
@@ -126,10 +135,10 @@ button {
   top: 56%;
 }
 .login form .rePass {
-  top: 59.5%;
+  top: 74%;
 }
 .login form .erorr4 {
-  top: 44%;
+  top: 62.5%;
 }
 .iconCell {
   margin: 60px auto;
