@@ -113,7 +113,7 @@ button {
 .nameError1 {
   position: absolute;
   right: 10%;
-  top: 50%;
+  top: 58%;
   font-size: 15px;
   color: var(--login-elements);
 }
@@ -129,7 +129,7 @@ button {
 }
 
 .login form .erorr2 {
-  top: 32.5%;
+  top: 40%;
 }
 .login form .erorr3 {
   top: 56%;

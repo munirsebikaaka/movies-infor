@@ -5,7 +5,6 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 
 import styles from "../styles/Login.module.css";
 import { ToastContainer, toast } from "react-toastify";
-// import checkIfPasswordIsValid from "../services/passwordChecker";
 import isUpperCaseAdded from "../services/passwordCheck/upperCase";
 import isLowerCaseAdded from "../services/passwordCheck/lowerCase";
 import isNumbersAdded from "../services/passwordCheck/numbers";

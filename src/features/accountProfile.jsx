@@ -19,8 +19,6 @@ const AboutAccount = () => {
     setValues({ ...values, [name]: value });
   };
 
-  // const logedInEmail = localStorage.getItem("email");
-
   const onsubmitHandler = (e) => {
     e.preventDefault();
     const accounts = JSON.parse(localStorage.getItem("acounts"));

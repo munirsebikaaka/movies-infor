@@ -55,8 +55,8 @@ const Login = ({
           </p>
 
           <form onSubmit={onsubmitHandler}>
-            <p className={styles.erorr}>{passwordMsg}</p>
             <p className={styles.erorr2}>{emailMsg}</p>
+            <p className={styles.erorr}>{passwordMsg}</p>
             <h1>Login</h1>
             <input
               name="email"
