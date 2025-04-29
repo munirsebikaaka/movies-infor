@@ -2,12 +2,7 @@ import { useState } from "react";
 import { MdMovie } from "react-icons/md";
 import styles from "../styles/Login.module.css";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-const Login = ({
-  setToggleRegstration,
-  setShowA,
-  setLogedInEmail,
-  handleShowAppChange,
-}) => {
+const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
   const [passwordMsg, setPasswordMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +17,7 @@ const Login = ({
   const onsubmitHandler = (e) => {
     e.preventDefault();
     const createdAcounts = JSON.parse(localStorage.getItem("acounts"));
-    const accountEmail = createdAcounts.map((acount) => acount.email).join("");
+    const accountEmail = createdAcounts?.map((acount) => acount.email).join("");
     if (!values.email || values.email !== accountEmail)
       return setEmailMsg("Invalid account!");
     setEmailMsg("");
@@ -33,10 +28,8 @@ const Login = ({
       return setPasswordMsg("Wrong password!");
     setPasswordMsg("");
     if (acount && acount.password === values.password) {
-      handleShowAppChange(true);
-      const showApp = JSON.parse(localStorage.getItem("showApp"));
-      setShowA(showApp);
       localStorage.setItem("email", values.email);
+      setShowA(true);
       setValues({
         email: "",
         password: "",

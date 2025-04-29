@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, data, Route, Routes } from "react-router-dom";
 import { useFetchDetail } from "./services/GetHomeData";
 import Login from "./features/Login";
@@ -20,7 +20,7 @@ const App = () => {
   const [toggleRegstration, setToggleRegstration] = useState(false);
   let [logedInEmail, setLogedInEmail] = useState("");
 
-  let [showApp, setShowA] = useState(false);
+  const [showApp, setShowA] = useState(false);
 
   const [error, setError] = useState("");
   const [homeInput, setHomeInput] = useState("");
@@ -43,10 +43,6 @@ const App = () => {
     seriesInput
   );
 
-  const handleShowAppChange = (showApp) => {
-    if (showApp) localStorage.setItem("showApp", JSON.stringify(showApp));
-    setShowA(showApp);
-  };
   const checkLengthOfMovieNames = (array) => {
     array.map((el) => {
       const movieName = el.Title;
@@ -61,6 +57,14 @@ const App = () => {
   checkLengthOfMovieNames(tvseries);
   checkLengthOfMovieNames(movieDetails);
 
+  useEffect(() => {
+    const updatedShowApp = JSON.parse(localStorage.getItem("showApp"));
+    setShowA(updatedShowApp);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("showApp", JSON.stringify(showApp));
+  }, [showApp]);
+
   return (
     <div className={styles.body}>
       {!showApp ? (
@@ -68,15 +72,11 @@ const App = () => {
           {!toggleRegstration ? (
             <Login
               setToggleRegstration={setToggleRegstration}
-              setShowA={setShowA}
-              handleShowAppChange={handleShowAppChange}
               setLogedInEmail={setLogedInEmail}
+              setShowA={setShowA}
             />
           ) : (
-            <SignIn
-              setToggleRegstration={setToggleRegstration}
-              setShowA={setShowA}
-            />
+            <SignIn setToggleRegstration={setToggleRegstration} />
           )}
         </div>
       ) : (
