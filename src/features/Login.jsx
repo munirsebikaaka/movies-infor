@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MdMovie } from "react-icons/md";
 import styles from "../styles/Login.module.css";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { logedInEmail } from "../services/bookmarksArr";
 const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
   const [passwordMsg, setPasswordMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
@@ -17,12 +18,28 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
   const onsubmitHandler = (e) => {
     e.preventDefault();
     const createdAcounts = JSON.parse(localStorage.getItem("acounts"));
-    const accountEmail = createdAcounts?.map((acount) => acount.email).join("");
-    if (!values.email || values.email !== accountEmail)
-      return setEmailMsg("Invalid account!");
+    const logedInUser = createdAcounts?.find((ac) => ac.email === values.email);
+    if (!values.email) return setEmailMsg("Please input email address.");
     setEmailMsg("");
+    if (!values.password) return setPasswordMsg("Please input password!");
+    setPasswordMsg("");
+    if (logedInUser.email !== values.email)
+      return setEmailMsg("Invalid email!");
+    if (logedInUser.password !== values.password)
+      return setPasswordMsg("Wrong password!");
+    setPasswordMsg("");
+    if (logedInUser) {
+      localStorage.setItem("email", values.email);
+      setLogedInEmail(values.email);
+      setShowA(true);
+      setValues({
+        email: "",
+        password: "",
+      });
+      return;
+    }
 
-    if (!values.password) return setPasswordMsg("Can't be empty!");
+    /*if (!values.password) return setPasswordMsg("Can't be empty!");
     const acount = createdAcounts?.find((ac) => ac.email === values.email);
     if (acount.password !== values.password)
       return setPasswordMsg("Wrong password!");
@@ -36,7 +53,7 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
       });
       setLogedInEmail(values.email);
       return;
-    }
+    }*/
   };
 
   return (

@@ -63,14 +63,14 @@ const AppNav = () => {
         </li>
       </ul>
       <NavLink to={"/profile"} className={styles.link}>
-        {/* {profileLength ? (
+        {profileLength ? (
           <img src={profilePic()} alt="Account profile" />
-        ) : ( */}
-        <div className={styles.profilePic}>
-          <h2>{firstLetters[0]}</h2>
-          <h2>{lastLetters[0]}</h2>
-        </div>
-        {/* )} */}
+        ) : (
+          <div className={styles.profilePic}>
+            <h2>{firstLetters[0]}</h2>
+            <h2>{lastLetters[0]}</h2>
+          </div>
+        )}
       </NavLink>
     </nav>
   );
