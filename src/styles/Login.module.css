@@ -150,7 +150,8 @@ button {
   color: var(--login-elements);
 }
 .loginEye,
-.signUpEye {
+.signUpEye,
+.Repeat {
   font-size: 22px;
   position: absolute;
   cursor: pointer;
@@ -160,4 +161,7 @@ button {
 }
 .signUpEye {
   bottom: 39%;
+}
+.Repeat {
+  bottom: 27%;
 }

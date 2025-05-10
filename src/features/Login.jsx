@@ -28,7 +28,7 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
     if (logedInUser.password !== values.password)
       return setPasswordMsg("Wrong password!");
     setPasswordMsg("");
-    if (logedInUser) {
+    if (logedInUser && logedInUser.password === values.password) {
       localStorage.setItem("email", values.email);
       setLogedInEmail(values.email);
       setShowA(true);
@@ -38,22 +38,6 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
       });
       return;
     }
-
-    /*if (!values.password) return setPasswordMsg("Can't be empty!");
-    const acount = createdAcounts?.find((ac) => ac.email === values.email);
-    if (acount.password !== values.password)
-      return setPasswordMsg("Wrong password!");
-    setPasswordMsg("");
-    if (acount && acount.password === values.password) {
-      localStorage.setItem("email", values.email);
-      setShowA(true);
-      setValues({
-        email: "",
-        password: "",
-      });
-      setLogedInEmail(values.email);
-      return;
-    }*/
   };
 
   return (

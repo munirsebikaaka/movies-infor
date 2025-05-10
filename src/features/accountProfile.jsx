@@ -9,6 +9,7 @@ const AboutAccount = () => {
   const [firstLetters, setFirstLetters] = useState("");
   const [lastLetters, setLastLetters] = useState("");
   const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
+  const [accountNames, setAccountNames] = useState([]);
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -18,6 +19,20 @@ const AboutAccount = () => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+
+  useEffect(() => {
+    const accounts = JSON.parse(localStorage.getItem("acounts"));
+    const firsLetterName = accounts
+      .filter((el) => el.email === logedInEmail)
+      .map((el) => el.firstName)
+      .join("");
+    setFirstLetters(firsLetterName);
+    const lastLetterName = accounts
+      .filter((el) => el.email === logedInEmail)
+      .map((el) => el.lastName)
+      .join("");
+    setLastLetters(lastLetterName);
+  }, []);
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
@@ -39,23 +54,6 @@ const AboutAccount = () => {
     });
   };
 
-  useEffect(() => {
-    const accounts = JSON.parse(localStorage.getItem("acounts"));
-    const getFirsLetterName = () =>
-      accounts
-        .filter((el) => el.email === logedInEmail)
-        .map((el) => el.firstName)
-        .join("");
-    setFirstLetters(getFirsLetterName());
-
-    const getLastLetterName = () =>
-      accounts
-        .filter((el) => el.email === logedInEmail)
-        .map((el) => el.lastName)
-        .join("");
-    setLastLetters(getLastLetterName());
-  }, []);
-
   const uploadPhotoTrigger = () => {
     const imageInput = document.getElementById("uploadImage");
     imageInput.click();
@@ -64,10 +62,7 @@ const AboutAccount = () => {
     const ImgObj = e.target.files[0];
     const url = URL.createObjectURL(ImgObj);
     localStorage.setItem("profilePic", url);
-    const profilePic = () => {
-      return localStorage.getItem("profilePic");
-    };
-    setValues({ ...values, image: profilePic() });
+    setValues({ ...values, image: url });
   };
 
   const profileLength = values.image?.length;

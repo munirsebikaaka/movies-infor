@@ -1,5 +1,8 @@
 import { useEffect } from "react";
-import { bookMarkedMoviesAndSeries } from "./bookmarksArr";
+// import { bookMarkedMoviesAndSeries } from "./bookmarksArr";
+const bookmarkedMoviesAndSeries = JSON.parse(
+  localStorage.getItem("moviesAndSeries") || "[]"
+);
 const apikey = "ef1735bd";
 export function useFetchDetail(
   setMovieDetails,
@@ -26,7 +29,7 @@ export function useFetchDetail(
 
           if (data.Search.length > 0) {
             const modifiedResults = data.Search.map((el) => {
-              const isBookMarked = bookMarkedMoviesAndSeries?.find(
+              const isBookMarked = bookmarkedMoviesAndSeries?.find(
                 (b) => b.imdbID === el.imdbID
               )
                 ? true

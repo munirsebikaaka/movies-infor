@@ -58,12 +58,17 @@ const App = () => {
   checkLengthOfMovieNames(movieDetails);
 
   useEffect(() => {
-    const updatedShowApp = JSON.parse(localStorage.getItem("showApp"));
-    setShowA(updatedShowApp);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("showApp", JSON.stringify(showApp));
+    if (showApp) {
+      localStorage.setItem("showApp", "true");
+    }
   }, [showApp]);
+
+  useEffect(() => {
+    const storedShowApp = localStorage.getItem("showApp");
+    if (storedShowApp === "true") {
+      setShowA(true);
+    }
+  }, []);
 
   return (
     <div className={styles.body}>

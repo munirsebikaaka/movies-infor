@@ -18,6 +18,7 @@ const SignIn = ({ setToggleRegstration }) => {
   const [passwordMsg, setPasswordMsg] = useState("");
   const [rePasswordMsg, setRePasswordMsg] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showRepeat, setShowRepeat] = useState(false);
 
   const [values, setValues] = useState({
     firstName: "",
@@ -152,7 +153,7 @@ const SignIn = ({ setToggleRegstration }) => {
           />
           <input
             name="repeatPassword"
-            type="password"
+            type={!showRepeat ? "password" : "text"}
             placeholder="Repeat password"
             value={rePassword}
             onChange={(e) => setRePassword(e.target.value)}
@@ -185,6 +186,30 @@ const SignIn = ({ setToggleRegstration }) => {
               onClick={() => setShowPassword(false)}
             />
           )}
+
+          {!showRepeat ? (
+            <IoEye
+              className={styles.Repeat}
+              onClick={() => setShowRepeat(true)}
+            />
+          ) : (
+            <IoEyeOff
+              className={styles.Repeat}
+              onClick={() => setShowRepeat(false)}
+            />
+          )}
+
+          {/* {!showRepeat ? (
+            <IoEye
+              className={styles.Repeat}
+              onClick={() => setShowRepeat(true)}
+            />
+          ) : (
+            <IoEyeOff
+              className={styles.Repeat}
+              onClick={() => setShowRepeat(false)}
+            />
+          )} */}
         </form>
       </div>
     </>

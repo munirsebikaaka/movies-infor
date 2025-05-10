@@ -5,13 +5,17 @@ import { IoSearch } from "react-icons/io5";
 import styles from "../styles/HomePage.module.css";
 import AppNav from "../features/ApplicationNavigation";
 import { useEffect, useState } from "react";
-import { bookMarkedMoviesAndSeries } from "../services/bookmarksArr";
+import { logedInEmail } from "../services/bookmarksArr";
 
 const BookMarks = () => {
   const [bookmarks, setBookmarks] = useState([]);
   useEffect(() => {
-    if (bookMarkedMoviesAndSeries?.length > 0) {
-      setBookmarks(bookMarkedMoviesAndSeries);
+    const moviesAndSeries = JSON.parse(localStorage.getItem("moviesAndSeries"));
+    if (moviesAndSeries) {
+      const filteredMoviesAndSeries = moviesAndSeries.filter(
+        (movie) => movie.email === logedInEmail
+      );
+      setBookmarks(filteredMoviesAndSeries);
     }
   }, []);
 
