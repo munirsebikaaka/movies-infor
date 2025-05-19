@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "../styles/profiles.module.css";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { logedInEmail } from "../services/bookmarksArr";
 import isUpperCaseAdded from "../services/passwordCheck/upperCase";
 import isLowerCaseAdded from "../services/passwordCheck/lowerCase";
 import isNumbersAdded from "../services/passwordCheck/numbers";
@@ -14,6 +13,8 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
     repeatPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+  const [showPassword3, setShowPassword3] = useState(false);
   const [oldMsg, setOldMsg] = useState("");
   const [newMsg, setNewMsg] = useState("");
   const [repeatMsg, setRepeatMsg] = useState("");
@@ -25,8 +26,9 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
   const onsubmitHandler = (e) => {
     e.preventDefault();
     const accounts = JSON.parse(localStorage.getItem("acounts"));
+    const accountID = localStorage.getItem("accountID");
     const savedPassword = accounts
-      .filter((el) => el.email === logedInEmail)
+      .filter((el) => el.accountID === accountID)
       .map((el) => el.password)
       .join("");
 
@@ -58,9 +60,9 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
       return setRepeatMsg("Please repeat password!");
     setRepeatMsg("");
     if (values.newPassword !== values.repeatPassword)
-      return alert("Password doesn't much!");
+      return setRepeatMsg("Password doesn't much!");
     const updatedAccount = accounts.map((el) => {
-      if (el.email === logedInEmail) {
+      if (el.accountID === accountID) {
         return { ...el, password: values.newPassword };
       }
       return el;
@@ -89,7 +91,7 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
                 ? { border: "1px solid  #fc4747" }
                 : { border: "1px solid  #5a698f" }
             }
-            type="password"
+            type={!showPassword2 ? "password" : "text"}
             placeholder="old password"
             name="oldPassword"
             onChange={handleChange}
@@ -119,7 +121,7 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
                 ? { border: "1px solid  #fc4747" }
                 : { border: "1px solid  #5a698f" }
             }
-            type="password"
+            type={showPassword3 ? "text" : "password"}
             placeholder="repeat password"
             name="repeatPassword"
             onChange={handleChange}
@@ -127,7 +129,7 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
           />
         </div>
         <button type="submit" className={styles.submit}>
-          submit
+          update password
         </button>
         {!showPassword ? (
           <IoEye
@@ -138,6 +140,28 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
           <IoEyeOff
             className={styles.profileEye}
             onClick={() => setShowPassword(false)}
+          />
+        )}
+        {!showPassword2 ? (
+          <IoEye
+            className={styles.profileEye2}
+            onClick={() => setShowPassword2(true)}
+          />
+        ) : (
+          <IoEyeOff
+            className={styles.profileEye2}
+            onClick={() => setShowPassword2(false)}
+          />
+        )}
+        {!showPassword3 ? (
+          <IoEye
+            className={styles.profileEye3}
+            onClick={() => setShowPassword3(true)}
+          />
+        ) : (
+          <IoEyeOff
+            className={styles.profileEye3}
+            onClick={() => setShowPassword3(false)}
           />
         )}
       </form>

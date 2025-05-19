@@ -6,26 +6,19 @@ import { BsBookmarkFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import styles from "../styles/Navigation.module.css";
 import { useEffect, useState } from "react";
-import { logedInEmail } from "../services/bookmarksArr";
 
 const AppNav = () => {
   const [firstLetters, setFirstLetters] = useState("");
   const [lastLetters, setLastLetters] = useState("");
   useEffect(() => {
     const accounts = JSON.parse(localStorage.getItem("acounts"));
-    const getFirsLetterName = () =>
-      accounts
-        .filter((el) => el.email === logedInEmail)
-        .map((el) => el.firstName)
-        .join("");
-    setFirstLetters(getFirsLetterName());
+    const accountID = localStorage.getItem("accountID");
 
-    const getLastLetterName = () =>
-      accounts
-        .filter((el) => el.email === logedInEmail)
-        .map((el) => el.lastName)
-        .join("");
-    setLastLetters(getLastLetterName());
+    const logedInUser = accounts?.find((ac) => ac.id === accountID);
+    const firstLetterName = logedInUser?.firstName.split("");
+    const lastLetterName = logedInUser?.lastName.split("");
+    setFirstLetters(firstLetterName);
+    setLastLetters(lastLetterName);
   }, []);
   const profilePic = () => {
     return localStorage.getItem("profilePic");

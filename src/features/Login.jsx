@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MdMovie } from "react-icons/md";
 import styles from "../styles/Login.module.css";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { logedInEmail } from "../services/bookmarksArr";
+
 const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
   const [passwordMsg, setPasswordMsg] = useState("");
   const [emailMsg, setEmailMsg] = useState("");
@@ -29,7 +29,8 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
       return setPasswordMsg("Wrong password!");
     setPasswordMsg("");
     if (logedInUser && logedInUser.password === values.password) {
-      localStorage.setItem("email", values.email);
+      localStorage.setItem("accountID", logedInUser.id);
+      localStorage.setItem("logedInEmail", logedInUser.email);
       setLogedInEmail(values.email);
       setShowA(true);
       setValues({

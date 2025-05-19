@@ -72,6 +72,7 @@ const SignIn = ({ setToggleRegstration }) => {
       lastName: values.lastName,
       email: values.email,
       password: values.password,
+      id: `256${values.email}${Math.random() * 10}${new Date().toISOString()}`,
     };
     acounts.push(acount);
     localStorage.setItem("acounts", JSON.stringify(acounts));

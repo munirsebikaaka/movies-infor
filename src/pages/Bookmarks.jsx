@@ -5,15 +5,15 @@ import { IoSearch } from "react-icons/io5";
 import styles from "../styles/HomePage.module.css";
 import AppNav from "../features/ApplicationNavigation";
 import { useEffect, useState } from "react";
-import { logedInEmail } from "../services/bookmarksArr";
 
 const BookMarks = () => {
   const [bookmarks, setBookmarks] = useState([]);
   useEffect(() => {
     const moviesAndSeries = JSON.parse(localStorage.getItem("moviesAndSeries"));
+    const accountID = localStorage.getItem("accountID");
     if (moviesAndSeries) {
       const filteredMoviesAndSeries = moviesAndSeries.filter(
-        (movie) => movie.email === logedInEmail
+        (movie) => movie.storeId === accountID
       );
       setBookmarks(filteredMoviesAndSeries);
     }

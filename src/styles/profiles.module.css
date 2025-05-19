@@ -30,7 +30,6 @@
   border-radius: 50%;
   text-align: center;
   border: 2px solid var(--login-el-color);
-  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,13 +114,21 @@
   border: 1.5px solid var(--login-el-color);
 }
 
-.profileEye {
+.profileEye,
+.profileEye2,
+.profileEye3 {
   font-size: 22px;
   position: absolute;
   cursor: pointer;
   color: var(--login-el-color);
   right: 1%;
   bottom: 42%;
+}
+.profileEye2 {
+  bottom: 69%;
+}
+.profileEye3 {
+  bottom: 15%;
 }
 @media (max-width: 850px) {
   .profileBody {

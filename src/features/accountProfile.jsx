@@ -9,12 +9,12 @@ const AboutAccount = () => {
   const [firstLetters, setFirstLetters] = useState("");
   const [lastLetters, setLastLetters] = useState("");
   const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
-  const [accountNames, setAccountNames] = useState([]);
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
     image: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -22,23 +22,27 @@ const AboutAccount = () => {
 
   useEffect(() => {
     const accounts = JSON.parse(localStorage.getItem("acounts"));
+    const accountID = localStorage.getItem("accountID");
     const firsLetterName = accounts
-      .filter((el) => el.email === logedInEmail)
+      .filter((el) => el.id === accountID)
       .map((el) => el.firstName)
       .join("");
     setFirstLetters(firsLetterName);
     const lastLetterName = accounts
-      .filter((el) => el.email === logedInEmail)
+      .filter((el) => el.id === accountID)
       .map((el) => el.lastName)
       .join("");
     setLastLetters(lastLetterName);
+    console.log(firsLetterName);
+    console.log(lastLetterName);
   }, []);
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
     const accounts = JSON.parse(localStorage.getItem("acounts"));
+    const accountID = localStorage.getItem("accountID");
     const updatedAccounts = accounts.map((account) => {
-      if (account.email === logedInEmail) {
+      if (account.id === accountID) {
         return {
           ...account,
           firstName: values.firstName,
@@ -58,11 +62,26 @@ const AboutAccount = () => {
     const imageInput = document.getElementById("uploadImage");
     imageInput.click();
   };
+  // const uploadPhotoHandler = (e) => {
+  //   const ImgObj = e.target.files[0];
+  //   const url = URL.createObjectURL(ImgObj);
+  //   localStorage.setItem("profilePic", url);
+  //   setValues({ ...values, image: url });
+  // };
+
   const uploadPhotoHandler = (e) => {
-    const ImgObj = e.target.files[0];
-    const url = URL.createObjectURL(ImgObj);
-    localStorage.setItem("profilePic", url);
-    setValues({ ...values, image: url });
+    const ImgObj = e.target.files;
+    if (ImgObj && ImgObj[0]) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imageDataUrl = event.target.result;
+        localStorage.setItem("profilePic", imageDataUrl);
+        const profilePic = localStorage.getItem("profilePic");
+        // setValues({ ...values, image: profilePic });
+        setValues((prev) => ({ ...prev, image: profilePic }));
+      };
+      reader.readAsDataURL(ImgObj[0]);
+    }
   };
 
   const profileLength = values.image?.length;
@@ -95,8 +114,9 @@ const AboutAccount = () => {
             type="file"
             accept="image/*"
           />
+          <br />
           <button onClick={uploadPhotoTrigger} className={styles.upload}>
-            Upload photo
+            {values.image?.length ? "Change Profile " : "Upload Profile "}
           </button>
         </div>
         <form onSubmit={onsubmitHandler}>
@@ -137,7 +157,7 @@ const AboutAccount = () => {
               />
               <br />
               <button type="submit" className={styles.submit}>
-                submit
+                update names
               </button>
             </div>
           </div>
