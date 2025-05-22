@@ -1,5 +1,3 @@
-import { logedInEmail } from "./bookmarksArr";
-
 export const pushToMarked = (action, imdbID, setAction) => {
   const accountID = localStorage.getItem("accountID");
   action.map((el) => {
@@ -23,7 +21,9 @@ export const pushToMarked = (action, imdbID, setAction) => {
   });
   setAction(
     action.map((items) =>
-      items.imdbID === imdbID ? { ...items, isBookMarked: true } : items
+      items.imdbID === imdbID && accountID === items.storeId
+        ? { ...items, isBookmarked: true }
+        : items
     )
   );
 };

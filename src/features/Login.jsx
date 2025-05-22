@@ -17,12 +17,13 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
-    const createdAcounts = JSON.parse(localStorage.getItem("acounts"));
-    const logedInUser = createdAcounts?.find((ac) => ac.email === values.email);
     if (!values.email) return setEmailMsg("Please input email address.");
     setEmailMsg("");
     if (!values.password) return setPasswordMsg("Please input password!");
     setPasswordMsg("");
+    const createdAcounts = JSON.parse(localStorage.getItem("acounts"));
+    const logedInUser = createdAcounts?.find((ac) => ac.email === values.email);
+    if (!logedInUser) return setEmailMsg("Invalid email!");
     if (logedInUser.email !== values.email)
       return setEmailMsg("Invalid email!");
     if (logedInUser.password !== values.password)
@@ -87,7 +88,7 @@ const Login = ({ setToggleRegstration, setShowA, setLogedInEmail }) => {
             <button type="submit" className={styles.btnLogin}>
               Login to your account
             </button>
-            <p>
+            <p className={styles.signUp}>
               Don’t have an acount?
               <button
                 onClick={() => setToggleRegstration(true)}

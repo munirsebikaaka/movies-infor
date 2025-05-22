@@ -32,10 +32,9 @@
   background-color: inherit;
   font-family: Outfit;
   font-weight: 500;
-  font-size: 15px;
-  line-height: 18.9px;
+  font-size: 14px;
   letter-spacing: 0px;
-  padding: 10px;
+  padding: 5px;
   color: var(--main-app-color);
 }
 
@@ -85,7 +84,8 @@ button {
 .btnLogin {
   margin-top: 16px;
 }
-.login p {
+.login .iconCell,
+.login .signUp {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,8 +160,8 @@ button {
   bottom: 44%;
 }
 .signUpEye {
-  bottom: 39%;
+  bottom: 39.5%;
 }
 .Repeat {
-  bottom: 27%;
+  bottom: 28.8%;
 }

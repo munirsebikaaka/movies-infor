@@ -28,7 +28,7 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
     const accounts = JSON.parse(localStorage.getItem("acounts"));
     const accountID = localStorage.getItem("accountID");
     const savedPassword = accounts
-      .filter((el) => el.accountID === accountID)
+      .filter((el) => el.id === accountID)
       .map((el) => el.password)
       .join("");
 
@@ -62,7 +62,7 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
     if (values.newPassword !== values.repeatPassword)
       return setRepeatMsg("Password doesn't much!");
     const updatedAccount = accounts.map((el) => {
-      if (el.accountID === accountID) {
+      if (el.id === accountID) {
         return { ...el, password: values.newPassword };
       }
       return el;

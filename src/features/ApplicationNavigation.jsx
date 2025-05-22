@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 const AppNav = () => {
   const [firstLetters, setFirstLetters] = useState("");
   const [lastLetters, setLastLetters] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   useEffect(() => {
     const accounts = JSON.parse(localStorage.getItem("acounts"));
     const accountID = localStorage.getItem("accountID");
@@ -20,10 +21,14 @@ const AppNav = () => {
     setFirstLetters(firstLetterName);
     setLastLetters(lastLetterName);
   }, []);
-  const profilePic = () => {
-    return localStorage.getItem("profilePic");
-  };
-  const profileLength = profilePic()?.length;
+
+  useEffect(() => {
+    const accounts = JSON.parse(localStorage.getItem("acounts"));
+    const accountID = localStorage.getItem("accountID");
+    accounts.map((el) => el.id === accountID && setProfilePic(el.profilePic));
+  }, []);
+
+  const profileLength = profilePic?.length;
 
   return (
     <nav className={styles.nav}>
@@ -57,11 +62,11 @@ const AppNav = () => {
       </ul>
       <NavLink to={"/profile"} className={styles.link}>
         {profileLength ? (
-          <img src={profilePic()} alt="Account profile" />
+          <img src={profilePic} alt="Account profile" />
         ) : (
           <div className={styles.profilePic}>
-            <h2>{firstLetters[0]}</h2>
-            <h2>{lastLetters[0]}</h2>
+            <h2>{firstLetters && firstLetters[0]}</h2>
+            <h2>{lastLetters && lastLetters[0]}</h2>
           </div>
         )}
       </NavLink>

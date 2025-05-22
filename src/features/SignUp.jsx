@@ -42,8 +42,8 @@ const SignIn = ({ setToggleRegstration }) => {
     setEmailMsg("");
     if (!values.password) return setPasswordMsg("Can't be empty!");
     setPasswordMsg("");
-    if (values.password.length < 4)
-      return setPasswordMsg("Password must aleast have 4 characters.");
+    if (values.password.length < 6)
+      return setPasswordMsg("Password must aleast have 6 characters.");
     setPasswordMsg("");
     if (!isUpperCaseAdded(values.password))
       return setPasswordMsg("Please include atleast one capital letter.");
@@ -167,7 +167,7 @@ const SignIn = ({ setToggleRegstration }) => {
             }
           />
           <button className={styles.enter}>Create an account</button>
-          <p>
+          <p className={styles.signUp}>
             Already have an account?
             <button
               onClick={() => setToggleRegstration(false)}

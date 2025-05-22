@@ -6,13 +6,14 @@ import { NavLink } from "react-router-dom";
 import { logedInEmail } from "../services/bookmarksArr";
 
 const AboutAccount = () => {
-  const [firstLetters, setFirstLetters] = useState("");
-  const [lastLetters, setLastLetters] = useState("");
+  const [profilePic, setProfilePic] = useState("");
+  const [userAccount, setUserAccount] = useState({});
+  const [firstErr, setFirstErr] = useState("");
+  const [lastErr, setLastErr] = useState("");
   const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
-    image: "",
   });
 
   const handleChange = (e) => {
@@ -23,22 +24,18 @@ const AboutAccount = () => {
   useEffect(() => {
     const accounts = JSON.parse(localStorage.getItem("acounts"));
     const accountID = localStorage.getItem("accountID");
-    const firsLetterName = accounts
-      .filter((el) => el.id === accountID)
-      .map((el) => el.firstName)
-      .join("");
-    setFirstLetters(firsLetterName);
-    const lastLetterName = accounts
-      .filter((el) => el.id === accountID)
-      .map((el) => el.lastName)
-      .join("");
-    setLastLetters(lastLetterName);
-    console.log(firsLetterName);
-    console.log(lastLetterName);
+    const logedInUser = accounts?.find((ac) => ac.id === accountID);
+    setUserAccount(logedInUser);
   }, []);
+  const firstName = userAccount?.firstName;
+  const lastName = userAccount?.lastName;
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
+    if (!values.firstName) return setFirstErr("Please input first name");
+    setFirstErr("");
+    if (!values.lastName) return setLastErr("Please input last name");
+    setLastErr("");
     const accounts = JSON.parse(localStorage.getItem("acounts"));
     const accountID = localStorage.getItem("accountID");
     const updatedAccounts = accounts.map((account) => {
@@ -51,6 +48,11 @@ const AboutAccount = () => {
       }
       return account;
     });
+    setUserAccount((account) => ({
+      ...account,
+      firstName: values.firstName,
+      lastName: values.lastName,
+    }));
     localStorage.setItem("acounts", JSON.stringify(updatedAccounts));
     setValues({
       firstName: "",
@@ -62,29 +64,39 @@ const AboutAccount = () => {
     const imageInput = document.getElementById("uploadImage");
     imageInput.click();
   };
-  // const uploadPhotoHandler = (e) => {
-  //   const ImgObj = e.target.files[0];
-  //   const url = URL.createObjectURL(ImgObj);
-  //   localStorage.setItem("profilePic", url);
-  //   setValues({ ...values, image: url });
-  // };
-
   const uploadPhotoHandler = (e) => {
-    const ImgObj = e.target.files;
-    if (ImgObj && ImgObj[0]) {
+    const ImgObj = e.target.files[0];
+    if (ImgObj) {
       const reader = new FileReader();
-      reader.onload = function (event) {
-        const imageDataUrl = event.target.result;
-        localStorage.setItem("profilePic", imageDataUrl);
-        const profilePic = localStorage.getItem("profilePic");
-        // setValues({ ...values, image: profilePic });
-        setValues((prev) => ({ ...prev, image: profilePic }));
+      reader.onload = (e) => {
+        const imgData = e.target.result;
+        const accounts = JSON.parse(localStorage.getItem("acounts"));
+        const accountID = localStorage.getItem("accountID");
+        const updatedAccounts = accounts.map((account) => {
+          if (account.id === accountID) {
+            return { ...account, profilePic: imgData };
+          }
+          return account;
+        });
+        updatedAccounts.map(
+          (el) => el.id === accountID && setProfilePic(el.profilePic)
+        );
+        localStorage.setItem("acounts", JSON.stringify(updatedAccounts));
       };
-      reader.readAsDataURL(ImgObj[0]);
+      reader.readAsDataURL(ImgObj);
     }
   };
 
-  const profileLength = values.image?.length;
+  useEffect(() => {
+    const accounts = JSON.parse(localStorage.getItem("acounts"));
+    const accountID = localStorage.getItem("accountID");
+    const logedInUser = accounts?.find((ac) => ac.id === accountID);
+    if (logedInUser?.profilePic) {
+      setProfilePic(logedInUser.profilePic);
+    }
+  }, []);
+
+  const profileLength = profilePic?.length;
 
   return (
     <div className={styles.profile}>
@@ -96,13 +108,13 @@ const AboutAccount = () => {
         <div>
           {!profileLength ? (
             <div className={styles.profilePic}>
-              <h2>{firstLetters[0]?.toUpperCase()}</h2>
-              <h2>{lastLetters[0]?.toUpperCase()}</h2>
+              <h2>{firstName && firstName[0]?.toUpperCase()}</h2>
+              <h2>{lastName && lastName[0]?.toUpperCase()}</h2>
             </div>
           ) : (
             <img
               className={styles.profileImg}
-              src={values.image}
+              src={profilePic}
               alt="face of the user"
             />
           )}
@@ -122,15 +134,22 @@ const AboutAccount = () => {
         <form onSubmit={onsubmitHandler}>
           <div className={styles.namesEmail}>
             <div className={styles.names}>
+              <p className={styles.firstNameError}>{firstErr}</p>
+              <p className={styles.lastNameError}>{lastErr}</p>
               <div>
                 <label className={styles.label}>First Name</label>
                 <br />
                 <input
                   type="text"
-                  placeholder={firstLetters}
+                  placeholder={firstName}
                   name="firstName"
                   value={values.firstName}
                   onChange={handleChange}
+                  style={
+                    firstErr.length > 0
+                      ? { border: "1px solid  #fc4747" }
+                      : { border: "1px solid  #5a698f" }
+                  }
                 />
                 <br />
               </div>
@@ -140,9 +159,14 @@ const AboutAccount = () => {
                 <input
                   name="lastName"
                   type="text"
-                  placeholder={lastLetters}
+                  placeholder={lastName}
                   onChange={handleChange}
                   value={values.lastName}
+                  style={
+                    lastErr.length > 0
+                      ? { border: "1px solid  #fc4747" }
+                      : { border: "1px solid  #5a698f" }
+                  }
                 />
               </div>
             </div>

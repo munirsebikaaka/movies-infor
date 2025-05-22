@@ -70,6 +70,7 @@
 .names {
   display: flex;
   gap: 20px;
+  position: relative;
 }
 .names div {
   width: 100%;
@@ -89,7 +90,9 @@
 }
 .passwordError,
 .passwordError2,
-.passwordError3 {
+.passwordError3,
+.firstNameError,
+.lastNameError {
   position: absolute;
   color: var(--login-elements);
   right: 2%;
@@ -100,6 +103,14 @@
 }
 .passwordError3 {
   top: 86%;
+}
+.firstNameError {
+  top: 94%;
+  right: 52%;
+}
+.lastNameError {
+  top: 94%;
+  right: 0;
 }
 .profile .profileBody label {
   font-size: 0.9rem;
@@ -151,3 +162,16 @@
     gap: 20px;
   }
 }
+/* 
+// const uploadPhotoHandler = (e) => {
+  //     const ImgObj = e.target.files[0];
+  //     const url = URL.createObjectURL(ImgObj);
+  //     localStorage.setItem("profilePic", url);
+  //   };
+
+  // useEffect(() => {
+  //   const profilePic = localStorage.getItem("profilePic");
+  //   setProfilePic(profilePic);
+  // }, []);
+
+*/
