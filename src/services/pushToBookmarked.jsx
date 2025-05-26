@@ -7,7 +7,6 @@ export const pushToMarked = (action, imdbID, setAction) => {
       bookmarkedMoviesAndSeries = JSON.parse(
         localStorage.getItem("moviesAndSeries") || "[]"
       );
-
       bookmarkedMoviesAndSeries.push({
         ...el,
         storeId: accountID,
@@ -19,11 +18,19 @@ export const pushToMarked = (action, imdbID, setAction) => {
       );
     }
   });
-  setAction(
-    action.map((items) =>
-      items.imdbID === imdbID && accountID === items.storeId
-        ? { ...items, isBookmarked: true }
-        : items
-    )
+  const bookmarked = JSON.parse(
+    localStorage.getItem("moviesAndSeries") || "[]"
   );
+  bookmarked.map((bookmarkedMOrS) => {
+    if (bookmarkedMOrS.storeId === accountID) {
+      setAction((prev) => {
+        return prev.map((el) => {
+          if (el.imdbID === bookmarkedMOrS.imdbID) {
+            return { ...el, isBookMarked: true };
+          }
+          return el;
+        });
+      });
+    }
+  });
 };

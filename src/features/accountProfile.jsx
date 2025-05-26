@@ -131,7 +131,7 @@ const AboutAccount = () => {
             {values.image?.length ? "Change Profile " : "Upload Profile "}
           </button>
         </div>
-        <form onSubmit={onsubmitHandler}>
+        <form onSubmit={onsubmitHandler} className={styles.accountForm}>
           <div className={styles.namesEmail}>
             <div className={styles.names}>
               <p className={styles.firstNameError}>{firstErr}</p>
@@ -175,14 +175,17 @@ const AboutAccount = () => {
               <br />
               <input
                 type="email"
+                value={userAccount.email}
                 placeholder={logedInEmail}
                 disabled
                 className={styles.email}
               />
               <br />
-              <button type="submit" className={styles.submit}>
-                update names
-              </button>
+              <div className={styles.submitBtn}>
+                <button type="submit" className={styles.submit}>
+                  update names
+                </button>
+              </div>
             </div>
           </div>
         </form>

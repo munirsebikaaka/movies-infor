@@ -3,6 +3,7 @@ import { useEffect } from "react";
 const bookmarkedMoviesAndSeries = JSON.parse(
   localStorage.getItem("moviesAndSeries") || "[]"
 );
+const accountID = localStorage.getItem("accountID");
 const apikey = "ef1735bd";
 export function useFetchDetail(
   setMovieDetails,
@@ -30,7 +31,7 @@ export function useFetchDetail(
           if (data.Search.length > 0) {
             const modifiedResults = data.Search.map((el) => {
               const isBookMarked = bookmarkedMoviesAndSeries?.find(
-                (b) => b.imdbID === el.imdbID
+                (b) => b.storeId === accountID && b.imdbID === el.imdbID
               )
                 ? true
                 : false;

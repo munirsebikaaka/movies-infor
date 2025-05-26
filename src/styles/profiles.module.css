@@ -11,12 +11,23 @@
   margin: 0 auto;
   position: relative;
 }
+
 .backHome {
   position: absolute;
   left: -40%;
   top: 1%;
   font-size: 32px;
   color: var(--links-color);
+}
+.accountForm {
+  border: 1px solid #454b50;
+  padding: 10px;
+  border-radius: 8px;
+}
+.submitBtn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
 }
 .profileBody h1 {
   font-size: 22px;
@@ -96,13 +107,13 @@
   position: absolute;
   color: var(--login-elements);
   right: 2%;
-  top: 31%;
+  top: 22.5%;
 }
 .passwordError2 {
-  top: 59%;
+  top: 43%;
 }
 .passwordError3 {
-  top: 86%;
+  top: 90.5%;
 }
 .firstNameError {
   top: 94%;
@@ -133,13 +144,30 @@
   cursor: pointer;
   color: var(--login-el-color);
   right: 1%;
-  bottom: 42%;
+  bottom: 57%;
 }
 .profileEye2 {
-  bottom: 69%;
+  bottom: 77.5%;
 }
 .profileEye3 {
-  bottom: 15%;
+  bottom: 9.3%;
+}
+
+.passwordCheck {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.passwordCheck P {
+  font-size: 13px;
+  font-family: Outfit;
+  color: var(--login-el-color);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 0;
+  text-transform: capitalize;
 }
 @media (max-width: 850px) {
   .profileBody {
@@ -162,16 +190,3 @@
     gap: 20px;
   }
 }
-/* 
-// const uploadPhotoHandler = (e) => {
-  //     const ImgObj = e.target.files[0];
-  //     const url = URL.createObjectURL(ImgObj);
-  //     localStorage.setItem("profilePic", url);
-  //   };
-
-  // useEffect(() => {
-  //   const profilePic = localStorage.getItem("profilePic");
-  //   setProfilePic(profilePic);
-  // }, []);
-
-*/

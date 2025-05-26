@@ -9,6 +9,7 @@ import styles from "../src/styles/Body.module.css";
 import Movies from "./pages/Movies";
 import TVSeries from "./pages/TvSeries";
 import AboutAccount from "./features/accountProfile";
+import useCheckIfElInBookmarkedIsInOtherArraysBasedOnLogedInAccount from "./services/checkIfBookmarked";
 
 const App = () => {
   const [movieDetails, setMoviesDetalis] = useState([]);
@@ -26,6 +27,11 @@ const App = () => {
   const [homeInput, setHomeInput] = useState("");
   const [MovieInput, setMovieInput] = useState("");
   const [seriesInput, setSeriesInput] = useState("");
+
+  const [bookmarkedMoviesAndSeries, setBookmarkedMoviesAndSeries] = useState(
+    []
+  );
+  const [accountID, setAccountID] = useState("");
 
   useFetchDetail(
     setMoviesDetalis,
@@ -70,6 +76,23 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const bookmarkedMoviesAndSeries = JSON.parse(
+      localStorage.getItem("moviesAndSeries") || "[]"
+    );
+    if (bookmarkedMoviesAndSeries.length > 0) {
+      setBookmarkedMoviesAndSeries(bookmarkedMoviesAndSeries);
+    }
+    const storedAccountID = localStorage.getItem("accountID");
+    if (storedAccountID) {
+      setAccountID(storedAccountID);
+    }
+  }, []);
+  // useCheckIfElInBookmarkedIsInOtherArraysBasedOnLogedInAccount(
+  //   movieDetails,
+  //   bookmarkedMoviesAndSeries,
+  //   accountID
+  // );
   return (
     <div className={styles.body}>
       {!showApp ? (
@@ -94,6 +117,7 @@ const App = () => {
                   movieDetails={movieDetails}
                   setMoviesDetalis={setMoviesDetalis}
                   movieDetailsDefault={movieDetailsDefault}
+                  bookmarkedMoviesAndSeries={bookmarkedMoviesAndSeries}
                   error={error}
                   homeInput={homeInput}
                   setHomeInput={setHomeInput}

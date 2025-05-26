@@ -113,19 +113,19 @@ button {
 .nameError1 {
   position: absolute;
   right: 10%;
-  top: 58%;
+  top: 54%;
   font-size: 15px;
   color: var(--login-elements);
 }
 .nameError {
-  top: 28%;
+  top: 24.5%;
   color: var(--login-elements);
 }
 .nameError1 {
-  top: 40%;
+  top: 33.8%;
 }
 .login form .erorr1 {
-  top: 51%;
+  top: 43%;
 }
 
 .login form .erorr2 {
@@ -135,10 +135,10 @@ button {
   top: 56%;
 }
 .login form .rePass {
-  top: 74%;
+  top: 75%;
 }
 .login form .erorr4 {
-  top: 62.5%;
+  top: 52.5%;
 }
 .iconCell {
   margin: 60px auto;
@@ -157,11 +157,27 @@ button {
   cursor: pointer;
   color: var(--main-app-color);
   right: 10%;
-  bottom: 44%;
+  bottom: 45%;
 }
 .signUpEye {
-  bottom: 39.5%;
+  bottom: 47%;
 }
 .Repeat {
-  bottom: 28.8%;
+  bottom: 25%;
+}
+.passwordCheck {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.passwordCheck P {
+  font-size: 13px;
+  font-family: Outfit;
+  color: var(--login-el-color);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 0;
+  text-transform: capitalize;
 }

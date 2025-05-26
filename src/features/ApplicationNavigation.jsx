@@ -25,7 +25,7 @@ const AppNav = () => {
   useEffect(() => {
     const accounts = JSON.parse(localStorage.getItem("acounts"));
     const accountID = localStorage.getItem("accountID");
-    accounts.map((el) => el.id === accountID && setProfilePic(el.profilePic));
+    accounts?.map((el) => el.id === accountID && setProfilePic(el.profilePic));
   }, []);
 
   const profileLength = profilePic?.length;

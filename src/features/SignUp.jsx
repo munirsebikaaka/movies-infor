@@ -1,15 +1,13 @@
-import React from "react";
 import { useState } from "react";
 import { MdMovie } from "react-icons/md";
-import { IoEye, IoEyeOff } from "react-icons/io5";
+import { IoCloseSharp, IoEye, IoEyeOff } from "react-icons/io5";
 
 import styles from "../styles/Login.module.css";
-import { ToastContainer, toast } from "react-toastify";
 import isUpperCaseAdded from "../services/passwordCheck/upperCase";
 import isLowerCaseAdded from "../services/passwordCheck/lowerCase";
 import isNumbersAdded from "../services/passwordCheck/numbers";
 import isSymbolsAdded from "../services/passwordCheck/symbols";
-
+import { IoMdCheckmark } from "react-icons/io";
 const SignIn = ({ setToggleRegstration }) => {
   const [firstMsg, setFirstMsg] = useState("");
   const [lastMsg, setLastMsg] = useState("");
@@ -32,6 +30,14 @@ const SignIn = ({ setToggleRegstration }) => {
     setValues({ ...values, [name]: value });
   };
 
+  const isPasswordLengthOk = values.password.length >= 6;
+  const isPasswordValid =
+    isUpperCaseAdded(values.password) &&
+    isLowerCaseAdded(values.password) &&
+    isNumbersAdded(values.password) &&
+    isSymbolsAdded(values.password) &&
+    isPasswordLengthOk;
+
   const onsubmitHandler = (e) => {
     e.preventDefault();
     if (!values.firstName) return setFirstMsg("Can't be empty! ");
@@ -41,21 +47,7 @@ const SignIn = ({ setToggleRegstration }) => {
     if (!values.email) return setEmailMsg("Please input email address.");
     setEmailMsg("");
     if (!values.password) return setPasswordMsg("Can't be empty!");
-    setPasswordMsg("");
-    if (values.password.length < 6)
-      return setPasswordMsg("Password must aleast have 6 characters.");
-    setPasswordMsg("");
-    if (!isUpperCaseAdded(values.password))
-      return setPasswordMsg("Please include atleast one capital letter.");
-    setPasswordMsg("");
-    if (!isLowerCaseAdded(values.password))
-      return setPasswordMsg("Please include atleast one small letter.");
-    setPasswordMsg("");
-    if (!isNumbersAdded(values.password))
-      return setPasswordMsg("Please include atleast one digit.");
-    setPasswordMsg("");
-    if (!isSymbolsAdded(values.password))
-      return setPasswordMsg("Please include atleast one symbol.");
+    if (!isPasswordValid) return setPasswordMsg("Invalid password!");
     setPasswordMsg("");
     if (!rePassword) return setRePasswordMsg("Repeat password!");
     setRePasswordMsg("");
@@ -77,14 +69,10 @@ const SignIn = ({ setToggleRegstration }) => {
     acounts.push(acount);
     localStorage.setItem("acounts", JSON.stringify(acounts));
     setToggleRegstration(false);
-    toast("Click the login button below to login!");
   };
 
   return (
     <>
-      <div>
-        <ToastContainer />
-      </div>
       <div className={styles.login}>
         <p className={styles.iconCell}>
           <MdMovie className={styles.icons} />
@@ -152,6 +140,133 @@ const SignIn = ({ setToggleRegstration }) => {
                 : { borderBottom: "1px solid  #5a698f" }
             }
           />
+          <div className={styles.passwordCheck}>
+            <div>
+              <p className={styles.check}>
+                {isUpperCaseAdded(values.password) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                one capital letter
+              </p>
+              <p className={styles.check}>
+                {isLowerCaseAdded(values.password) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                one small letter
+              </p>
+              <p className={styles.check}>
+                {isLowerCaseAdded(values.password) &&
+                isUpperCaseAdded(values.password) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                only Latin letters
+              </p>
+            </div>
+            <div>
+              <p className={styles.check}>
+                {isNumbersAdded(values.password) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}{" "}
+                one digit
+              </p>
+              <p className={styles.check}>
+                {isSymbolsAdded(values.password) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                one symbol
+              </p>
+              <p className={styles.check}>
+                {isPasswordLengthOk ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                use 6 or more
+              </p>
+            </div>
+          </div>
           <input
             name="repeatPassword"
             type={!showRepeat ? "password" : "text"}
@@ -199,18 +314,6 @@ const SignIn = ({ setToggleRegstration }) => {
               onClick={() => setShowRepeat(false)}
             />
           )}
-
-          {/* {!showRepeat ? (
-            <IoEye
-              className={styles.Repeat}
-              onClick={() => setShowRepeat(true)}
-            />
-          ) : (
-            <IoEyeOff
-              className={styles.Repeat}
-              onClick={() => setShowRepeat(false)}
-            />
-          )} */}
         </form>
       </div>
     </>

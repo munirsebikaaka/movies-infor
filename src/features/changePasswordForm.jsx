@@ -1,10 +1,11 @@
 import { useState } from "react";
 import styles from "../styles/profiles.module.css";
-import { IoEye, IoEyeOff } from "react-icons/io5";
+import { IoCloseSharp, IoEye, IoEyeOff } from "react-icons/io5";
 import isUpperCaseAdded from "../services/passwordCheck/upperCase";
 import isLowerCaseAdded from "../services/passwordCheck/lowerCase";
 import isNumbersAdded from "../services/passwordCheck/numbers";
 import isSymbolsAdded from "../services/passwordCheck/symbols";
+import { IoMdCheckmark } from "react-icons/io";
 
 export default function ChangePassword({ setShowChangePasswordForm }) {
   const [values, setValues] = useState({
@@ -22,6 +23,14 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+
+  const isPasswordLengthOk = values.newPassword.length >= 6;
+  const isPasswordValid =
+    isUpperCaseAdded(values.newPassword) &&
+    isLowerCaseAdded(values.newPassword) &&
+    isNumbersAdded(values.newPassword) &&
+    isSymbolsAdded(values.newPassword) &&
+    isPasswordLengthOk;
 
   const onsubmitHandler = (e) => {
     e.preventDefault();
@@ -41,21 +50,7 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
     if (values.newPassword.length < 1)
       return setNewMsg("Please input new password!");
     setNewMsg("");
-    if (values.newPassword.length < 6)
-      return setNewMsg("New password must atleast has 6 digits!");
-    setNewMsg("");
-    if (!isUpperCaseAdded(values.newPassword))
-      return setNewMsg("Please include atleast one capital letter.");
-    setNewMsg("");
-    if (!isLowerCaseAdded(values.newPassword))
-      return setNewMsg("Please include atleast one small letter.");
-    setNewMsg("");
-    if (!isNumbersAdded(values.newPassword))
-      return setNewMsg("Please include atleast one digit.");
-    setNewMsg("");
-    if (!isSymbolsAdded(values.newPassword))
-      return setNewMsg("Please include atleast one symbol.");
-    setNewMsg("");
+    if (!isPasswordValid) return setNewMsg("invalid password!");
     if (values.repeatPassword.length < 1)
       return setRepeatMsg("Please repeat password!");
     setRepeatMsg("");
@@ -112,6 +107,134 @@ export default function ChangePassword({ setShowChangePasswordForm }) {
             onChange={handleChange}
             value={values.newPassword}
           />
+
+          <div className={styles.passwordCheck}>
+            <div>
+              <p className={styles.check}>
+                {isUpperCaseAdded(values.newPassword) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                one capital letter
+              </p>
+              <p className={styles.check}>
+                {isLowerCaseAdded(values.newPassword) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                one small letter
+              </p>
+              <p className={styles.check}>
+                {isLowerCaseAdded(values.newPassword) &&
+                isUpperCaseAdded(values.newPassword) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                only Latin letters
+              </p>
+            </div>
+            <div>
+              <p className={styles.check}>
+                {isNumbersAdded(values.newPassword) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}{" "}
+                one digit
+              </p>
+              <p className={styles.check}>
+                {isSymbolsAdded(values.newPassword) ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                one symbol
+              </p>
+              <p className={styles.check}>
+                {isPasswordLengthOk ? (
+                  <IoMdCheckmark
+                    style={{
+                      color: "#00ff00",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                ) : (
+                  <IoCloseSharp
+                    style={{
+                      color: "#fc4747",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                use 6 or more
+              </p>
+            </div>
+          </div>
           <br />
           <label>Comfirm new password</label>
           <br />
